@@ -1,9 +1,9 @@
 import React, {Component, Fragment} from 'react';
-import { Button, Header, Icon, Segment, Menu} from 'semantic-ui-react'
+import { Menu} from 'semantic-ui-react'
 
 export default class Games extends Component {
 
-    sendToHome = ()=> this.props.history.push({pathname: '/home'});
+    sendToHome = ()=> this.props.history.push({pathname: '/'});
 
     sendToGames = ()=> this.props.history.push({pathname: '/games'});
 

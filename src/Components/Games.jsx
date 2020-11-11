@@ -1,8 +1,8 @@
 import React, {Component, Fragment} from 'react';
-import { Button, Header, Icon, Segment, Menu } from 'semantic-ui-react'
+import { Button, Header, Icon, Segment, Menu , Image} from 'semantic-ui-react'
 
 export default class Games extends Component {
-    sendToHome = ()=> this.props.history.push({pathname: '/home'});
+    sendToHome = ()=> this.props.history.push({pathname: '/'});
 
     sendToGames = ()=> this.props.history.push({pathname: '/games'});
 
@@ -13,11 +13,14 @@ export default class Games extends Component {
             <Fragment>
                 <Segment vertical raised >
                 <Menu vertical inverted  pointing fixed='left' size='large'>
+
+                        <Image size='medium' src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
                         
                         <Menu.Item
                             name='Home' icon='home'  onClick={this.sendToHome} 
     
                         />
+
                         <Menu.Item
                             name='Juegos' icon='game'  onClick={this.sendToGames}
                             
@@ -38,6 +41,29 @@ export default class Games extends Component {
                     <Button primary>Add Document</Button>
                     
                 </Segment>
+
+            {/* <List>
+                    <List.Item>
+                    <List.Icon name='users' />
+                    <List.Content>Semantic UI</List.Content>
+                    </List.Item>
+                    <List.Item>
+                    <List.Icon name='marker' />
+                    <List.Content>New York, NY</List.Content>
+                    </List.Item>
+                    <List.Item>
+                    <List.Icon name='mail' />
+                    <List.Content>
+                        <a href='mailto:jack@semantic-ui.com'>jack@semantic-ui.com</a>
+                    </List.Content>
+                    </List.Item>
+                    <List.Item>
+                    <List.Icon name='linkify' />
+                    <List.Content>
+                        <a href='http://www.semantic-ui.com'>semantic-ui.com</a>
+                    </List.Content>
+                    </List.Item>
+            </List> */}
                 
             </Fragment>
         );
