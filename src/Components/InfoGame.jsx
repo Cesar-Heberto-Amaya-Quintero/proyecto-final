@@ -11,6 +11,7 @@ const GET_GAME_BY_ID = gql `
                 author
                 genero
                 imageUrl
+                themeColor 
                 description
             }
     }`
@@ -25,6 +26,7 @@ export default class Games extends Component {
         author: '',
         genero: '',
         imageUrl: '',
+        themeColor:'',
         description: ''
     }
 
@@ -45,8 +47,8 @@ export default class Games extends Component {
                 id: this.props.history.location.state.gameId
             }
         });
-        const {id, name, author, genero, imageUrl,description}= response.data.game;
-        this.setState({ id: id, name:name, author: author, genero:genero, imageUrl: imageUrl, description:description});
+        const {id, name, author, genero, imageUrl,description, themeColor}= response.data.game;
+        this.setState({ id: id, name:name, author: author, genero:genero, imageUrl: imageUrl,themeColor: themeColor, description:description});
         console.log(response.data.game);
     }
 
@@ -60,7 +62,7 @@ export default class Games extends Component {
                         <Table.Body>
                             <Table.Row>
                             <Table.HeaderCell width='2'>
-                                    <Menu vertical  pointing fixed='left' size='large'  >
+                                    <Menu vertical inverted  pointing fixed='left' size='large'  >
                                     
                                         <Menu.Item
                                             name='Home' icon='home'  onClick={this.sendToHome}
@@ -79,33 +81,35 @@ export default class Games extends Component {
                                 <Table.HeaderCell>
                                     
                                     
-                                    <Segment inverted color='black'>
+                                    <Segment inverted color={this.state.themeColor}>
                                         
                                         <Divider hidden></Divider>
                                     
                                         <Image centered circular size='large' src={this.state.imageUrl}/>
 
-                                        <Header size='huge'  textAlign='center' >{this.state.name} </Header>
+                                        
                                     {/*  <Header as='h3' textAlign='center'> {this.state.description} </Header>  */}
                                     </Segment>
 
                                 </Table.HeaderCell>
+                                
                             </Table.Row>
 
                         </Table.Body>
                     </Table>
 
                     {/* CÓDIGO PARA LA PARTE DE INFORMACIÓN*/ }
-
-                    <Table compact  fixed>
+                    
+                    <Table compact  fixed >
+                        
                         <Table.Body>
                             <Table.Row>
                             <Table.HeaderCell width='2'>
-
+                                    
                                 </Table.HeaderCell>
-
-                                <Table.HeaderCell>
-
+                                
+                                <Table.HeaderCell >
+                                <Header size='huge'  textAlign='center' >{this.state.name} </Header>
 
                                     <Container>
                                         <Divider horizontal>

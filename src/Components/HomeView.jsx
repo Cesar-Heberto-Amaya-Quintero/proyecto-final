@@ -12,6 +12,7 @@ const GET_ALL_GAMES = gql`
             author
             genero
             imageUrl
+            themeColor
             description
   }
 }
@@ -79,13 +80,13 @@ export default class HomeView extends Component {
         return(
             
             <Fragment>
-
+                
                     {/* MENU VERTICAL A LA IZQUIERDA*/}
-                    <Table color='black' key='black' inverted compact >
+                    <Table color='black' key='black' inverted compact  fixed >
                         <Table.Body>
                             <Table.Row>
                             <Table.HeaderCell width='2'>
-                                    <Menu vertical  pointing fixed='left' size='large'  >
+                                    <Menu vertical inverted  fixed='left' size='large'   >
                                     
                                         <Menu.Item
                                             name='Home' icon='home'  onClick={this.sendToHome}
@@ -101,40 +102,41 @@ export default class HomeView extends Component {
                                         />
                                     </Menu>
                                 </Table.HeaderCell>
-                                <Table.HeaderCell>
+                                
+                                <Table.Cell>
+                                    <Image spaced  fluid  src='https://cdn.discordapp.com/attachments/775558235809120268/775963023591473152/playing_games_-2-01.png' />
 
-                                </Table.HeaderCell>
+                                    <Table color='black' key='black' inverted compact >
+                                        <Table.Body> 
+                                            <Table.Row>
+                                                <Table.Cell textAlign>
+                                                
+                                                    <Segment  color='black' inverted textAlign='center'>
+                                                        <Header  textAlign='center' color='black'  as='h2' icon='game' content='Game' />
+                                                    </Segment>
+                                                    
+
+
+                                                    <List horizontal celled >
+                                                        {this.showGames()}
+                                                    </List>
+
+                                                </Table.Cell>
+                                            </Table.Row>
+
+                                        </Table.Body>
+                                    </Table>
+                                </Table.Cell>
                             </Table.Row>
 
                         </Table.Body>
                     </Table>
+
 
                     {/* CONTENIDO LADO DERECHO PANTALLA */}
 
-                    <Table color='black' key='black' inverted compact textAlign='center' >
-                        <Table.Body>
-                            <Table.Row>
-                            <Table.HeaderCell width='2'>
-
-                                
-
-                                </Table.HeaderCell>
-                                <Table.HeaderCell>
-
-                                <Image fluid spaced src='https://cdn.discordapp.com/attachments/775558235809120268/775963023591473152/playing_games_-2-01.png' />
-                                    <Header inverted as='h2' icon='game' content='Game' />
-
                     
-                                    <List horizontal celled >
-                                        {this.showGames()}
-                                    </List>
-
-                                </Table.HeaderCell>
-                            </Table.Row>
-
-                        </Table.Body>
-                    </Table>
-
+                    
               {/* <Segment inverted>
                       <Menu inverted widths='5' fixed='top' size='massive' >
                     
