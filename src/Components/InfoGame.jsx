@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {getApolloContext, gql} from '@apollo/client';
 
-import { Menu,  Image, Rating, Card} from 'semantic-ui-react';
+import { Menu,  Image, Rating, Card, Header, Divider, Container, Grid, Segment,Table,Icon} from 'semantic-ui-react';
 
 const GET_GAME_BY_ID = gql `
     query($id: ID!){
@@ -54,38 +54,95 @@ export default class Games extends Component {
 
         return(
             <Fragment>
-               <Menu inverted widths='five' pointing  floated= 'right'>
-                        
-                        <Menu.Item
-                            name='Home' icon='home' header as='h3' onClick={this.sendToHome}
-    
-                        />
-                        <Menu.Item
-                            name='Juegos' icon='game' header as='h3' onClick={this.sendToGames}
-                            
-    
-                        />
-                        <Menu.Item
-                            name='Top trending' icon='star' header as='h3' onClick={this.sendToTops}
-                        />
-                        </Menu>
 
-                        <Card>
-                            <Image centered  label={{ as: '', color: 'red', corner: 'bottom', icon: 'heart' }} size='medium' 
-                                src={this.state.imageUrl} />
-                            <Card.Content>
-                            <Card.Header>{this.state.name}</Card.Header>
-                            <Card.Meta>
-                                <span className='date'>{this.state.author}</span>
-                            </Card.Meta>
-                            <Card.Description content textAlign='left'>
-                                {this.state.genero}
-                            </Card.Description>
-                            </Card.Content>
-                            <Card.Content extra>
-                                <Rating defaultRating={3} maxRating={4} />
-                            </Card.Content>
-                        </Card>
+                    {/* CÓDIGO PARA LA PARTE DE MENU E IMAGEN*/ }
+                    <Table color='black' key='black' inverted compact  fixed>
+                        <Table.Body>
+                            <Table.Row>
+                            <Table.HeaderCell width='2'>
+                                    <Menu vertical  pointing fixed='left' size='large'  >
+                                    
+                                        <Menu.Item
+                                            name='Home' icon='home'  onClick={this.sendToHome}
+                    
+                                        />
+                                        <Menu.Item
+                                            name='Juegos' icon='game'  onClick={this.sendToGames}
+                                            
+                    
+                                        />
+                                        <Menu.Item
+                                            name='Top trending' icon='star'  onClick={this.sendToTops}
+                                        />
+                                    </Menu>
+                                </Table.HeaderCell>
+                                <Table.HeaderCell>
+                                    
+                                    
+                                    <Segment inverted color='black'>
+                                        
+                                        <Divider hidden></Divider>
+                                    
+                                        <Image centered circular size='large' src={this.state.imageUrl}/>
+
+                                        <Header size='huge'  textAlign='center' >{this.state.name} </Header>
+                                    {/*  <Header as='h3' textAlign='center'> {this.state.description} </Header>  */}
+                                    </Segment>
+
+                                </Table.HeaderCell>
+                            </Table.Row>
+
+                        </Table.Body>
+                    </Table>
+
+                    {/* CÓDIGO PARA LA PARTE DE INFORMACIÓN*/ }
+
+                    <Table compact  fixed>
+                        <Table.Body>
+                            <Table.Row>
+                            <Table.HeaderCell width='2'>
+
+                                </Table.HeaderCell>
+
+                                <Table.HeaderCell>
+
+
+                                    <Container>
+                                        <Divider horizontal>
+                                            <Header as='h4'>
+                                                <Icon name='info' />
+                                                Información adicional
+                                            </Header>
+                                        </Divider>
+
+                                        <Table definition color='black' striped >
+                                            <Table.Body>
+                                                <Table.Row>
+                                                <Table.Cell width={2}>Nombre</Table.Cell>
+                                                <Table.Cell> {this.state.name} </Table.Cell>
+                                                </Table.Row>
+                                                <Table.Row>
+                                                <Table.Cell>Autor</Table.Cell>
+                                                <Table.Cell> {this.state.author} </Table.Cell>
+                                                </Table.Row>
+                                                <Table.Row>
+                                                <Table.Cell>Género</Table.Cell>
+                                                <Table.Cell> {this.state.genero} </Table.Cell>
+                                                </Table.Row>
+                                                <Table.Row>
+                                                <Table.Cell> Descripción</Table.Cell>
+                                                <Table.Cell> {this.state.description} </Table.Cell>
+                                                </Table.Row>
+                                            </Table.Body>
+                                        </Table>
+                                    </Container>
+                                </Table.HeaderCell>
+                            </Table.Row>
+
+                        </Table.Body>
+                    </Table>
+                
+                    
             </Fragment>
         );
 

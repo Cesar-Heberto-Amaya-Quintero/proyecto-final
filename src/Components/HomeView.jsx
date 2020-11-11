@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 
-import { Divider,  Header, Segment, Menu,  Image, Rating, Embed,  Card, List} from 'semantic-ui-react';
+import { Divider,  Header, Segment, Menu,  Image, Rating, Embed,  Card, List,Table} from 'semantic-ui-react';
 
 import {getApolloContext, gql} from '@apollo/client';
 
@@ -47,17 +47,17 @@ export default class HomeView extends Component {
         return this.state.games.map(game=>{
             console.log(game);
                 return <Fragment >
-
+                    {/* MOSTRAR TARJETAS CON LA INFO DE LOS JUEGOS */}
                         <List.Item >
-                        <Card onClick={()=>this.sendToInfoGame(game.id)}>
-                            <Image centered  label={{ as: '', color: 'red', corner: 'bottom', icon: 'heart' }} size='medium' 
+                        <Card fluid onClick={()=>this.sendToInfoGame(game.id)}>
+                            <Image  label={{  color: 'red', corner: 'bottom', icon: 'heart' }} size='medium' 
                                 src={game.imageUrl} />
                             <Card.Content>
                             <Card.Header>{game.name}</Card.Header>
                             <Card.Meta>
                                 <span className='date'>{game.author}</span>
                             </Card.Meta>
-                            <Card.Description content textAlign='left'>
+                            <Card.Description content textAlign='center'>
                                 {game.genero}
                             </Card.Description>
                             </Card.Content>
@@ -80,34 +80,84 @@ export default class HomeView extends Component {
             
             <Fragment>
 
-                <Segment >
-                    <Menu inverted widths='5' fixed='top'  >
+                    {/* MENU VERTICAL A LA IZQUIERDA*/}
+                    <Table color='black' key='black' inverted compact >
+                        <Table.Body>
+                            <Table.Row>
+                            <Table.HeaderCell width='2'>
+                                    <Menu vertical  pointing fixed='left' size='large'  >
+                                    
+                                        <Menu.Item
+                                            name='Home' icon='home'  onClick={this.sendToHome}
+                    
+                                        />
+                                        <Menu.Item
+                                            name='Juegos' icon='game'  onClick={this.sendToGames}
+                                            
+                    
+                                        />
+                                        <Menu.Item
+                                            name='Top trending' icon='star'  onClick={this.sendToTops}
+                                        />
+                                    </Menu>
+                                </Table.HeaderCell>
+                                <Table.HeaderCell>
+
+                                </Table.HeaderCell>
+                            </Table.Row>
+
+                        </Table.Body>
+                    </Table>
+
+                    {/* CONTENIDO LADO DERECHO PANTALLA */}
+
+                    <Table color='black' key='black' inverted compact textAlign='center' >
+                        <Table.Body>
+                            <Table.Row>
+                            <Table.HeaderCell width='2'>
+
+                                
+
+                                </Table.HeaderCell>
+                                <Table.HeaderCell>
+
+                                <Image fluid spaced src='https://cdn.discordapp.com/attachments/775558235809120268/775963023591473152/playing_games_-2-01.png' />
+                                    <Header inverted as='h2' icon='game' content='Game' />
+
+                    
+                                    <List horizontal celled >
+                                        {this.showGames()}
+                                    </List>
+
+                                </Table.HeaderCell>
+                            </Table.Row>
+
+                        </Table.Body>
+                    </Table>
+
+              {/* <Segment inverted>
+                      <Menu inverted widths='5' fixed='top' size='massive' >
                     
                     <Image size='small'  src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
 
                     <Menu.Item
-                        name='Home' icon='home' header as='h3'  onClick={this.sendToHome}
+                        name='Home' icon='home'  onClick={this.sendToHome}
                     /> 
                     <Menu.Item
-                        name='Juegos' icon='game' header as='h3' onClick={this.sendToGames} 
+                        name='Juegos' icon='game'  onClick={this.sendToGames} 
 
                     />
                     
                     <Menu.Item
-                        name='Top trending' icon='star' header as='h3' onClick={this.sendToTops}
+                        name='Top trending' icon='star'  onClick={this.sendToTops}
                     />
                     </Menu>
                     
-                    <Divider></Divider>
+                    
                 
-                    <Header as='h2' icon='game' content='Game' />
-
                     
-                        <List horizontal celled >
-                            {this.showGames()}
-                        </List>
                     
-
+                    
                                 
 
                         
@@ -117,14 +167,14 @@ export default class HomeView extends Component {
 
 
                     <Divider hidden></Divider>
-                    { <Embed
+                     { <Embed
                     id='Yg3LhyQGSu8'
                     placeholder='https://as.com/meristation/imagenes/2020/09/04/noticias/1599237499_919231_1599237606_noticia_normal.jpg'
                     source='youtube'
-                /> }
+                /> } 
 
                 
-                </Segment>
+                </Segment> */}
                 
                 
             </Fragment>
