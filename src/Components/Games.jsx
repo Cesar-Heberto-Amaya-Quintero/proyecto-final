@@ -11,6 +11,7 @@ export default class Games extends Component {
     render(){
         return(
             <Fragment>
+
                 <Segment vertical raised >
                 <Menu vertical inverted  pointing fixed='left' size='large'>
 
@@ -32,7 +33,7 @@ export default class Games extends Component {
                     </Menu>
                 </Segment>
                     
-                <Segment placeholder >
+                <Segment placeholder>
                     
                     <Header icon>
                     <Icon name='pdf file outline' />

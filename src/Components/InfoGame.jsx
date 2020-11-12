@@ -62,7 +62,7 @@ export default class Games extends Component {
                         <Table.Body>
                             <Table.Row>
                             <Table.HeaderCell width='2'>
-                                    <Menu vertical inverted  pointing fixed='left' size='large'  >
+                                    <Menu vertical inverted style={{ backgroundColor: '#000' }} pointing fixed='left' size='large'  >
                                     
                                         <Menu.Item
                                             name='Home' icon='home'  onClick={this.sendToHome}
