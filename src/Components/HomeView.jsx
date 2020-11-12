@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { Divider, Header, Segment, Menu, Image, Rating, Embed, Card, List, Table } from 'semantic-ui-react';
+import { Divider, Header, Segment, Menu, Image, Rating, Embed, Card, List, Table, Reveal } from 'semantic-ui-react';
 
 import { getApolloContext, gql } from '@apollo/client';
 
@@ -108,9 +108,17 @@ export default class HomeView extends Component {
 
 
                                 <Table.HeaderCell>
+                                <Reveal animated='move' instant>
+                                    <Reveal.Content visible>
                                     <Image spaced fluid src='https://cdn.discordapp.com/attachments/775558235809120268/776280317643456532/DIMEN.PLA.2.png' />
+                                    </Reveal.Content>
+                                    <Reveal.Content hidden>
+                                    <Image spaced fluid src='https://cdn.discordapp.com/attachments/775558235809120268/776281592473714708/PLAY.2.DIM.png' />
+                                    </Reveal.Content>
+                                </Reveal>
+                                    
 
-                                    <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact >
+                                    <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact textAlign='center'>
                                         <Table.Body >
                                             <Table.Row>
                                                 <Table.Cell textAlign>
@@ -171,6 +179,8 @@ export default class HomeView extends Component {
 
                 
                 </Segment> */}
+
+                
 
 
                 </Fragment>
