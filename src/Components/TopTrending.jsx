@@ -3,35 +3,32 @@ import {getApolloContext, gql} from '@apollo/client';
 import { Button, Header, Icon, Segment, Menu, Image, Sidebar, Form, Checkbox, Divider, Select, Dropdown,Table, List } from 'semantic-ui-react'
 
  const ADD_GAME =gql`
-    mutation($name: String!, $author: String!, $genero: String!, $themeColor: String! ,$description: String!)
+    mutation($name: String!, $author: String!, $themeColor: String! ,$description: String!, $gameGeneroId: ID!)
     {
-        addGame(name:$name, author:$author, genero: $genero,themeColor: $themeColor,description:$description)
+        addGame(name:$name, author:$author,themeColor: $themeColor,description:$description, gameGeneroId: $gameGeneroId)
     {
         id
         name
         author
-        genero
         imageUrl
         themeColor
         description
+        gameGenero{
+            name
+        }
     }
     }
 `;
 
-const generoOptions = [
-    { key: 'av', text: 'Aventura', value: 'aventura'},
-    { key: 'dis', text: 'Disparos', value: 'disparos' },
-    { key: 'ed', text: 'Educativos', value: 'educativos' },
-    { key: 'es', text: 'Estrategia', value: 'estrategia' },
-    { key: 'sh', text: 'Survival horror', value: 'survivalhorror' },
-    { key: 'pl', text: 'Plataformas', value: 'plataformas' },
-    { key: 'ro', text: 'Rol', value: 'rol' },
-    { key: 'mu', text: 'Musicales', value: 'musicales' },
-    { key: 'pa', text: 'Party games', value: 'partygames' },
-    { key: 'si', text: 'Simulación', value: 'simulacion' },
-    { key: 'ca', text: 'Carreras', value: 'carreras' },
-    { key: 'o', text: 'Otro', value: 'Otro' },
-]
+const GET_ALL_GAME_GENEROS= gql `
+    {
+        gameGeneros{
+            id
+            name
+        }
+    }
+`
+
 
 const colorOptions = [
     {
@@ -117,11 +114,12 @@ const colorOptions = [
 export default class Games extends Component {
 
     state = {
+        gameGeneroList: [],
         fieldName: '',
         fieldAuthor: '',
-        fieldDescription:'',
-        fieldGenero: '',
+        fieldDescription:'', 
         fieldThemeColor: '',
+        fieldGameGenero: '',
     }
 
     static contextType = getApolloContext(); 
@@ -132,20 +130,24 @@ export default class Games extends Component {
 
     sendToTops = () => this.props.history.push({ pathname: '/top' });
 
-    handleChange = (e, { value }) => this.setState({ value });
+    //handleGameGenero = (e, { value }) => this.setState({ fieldGameGenero: value });
 
     handleName = e => this.setState({fieldName: e.target.value});
     handleAuthor = e=> this.setState ({fieldAuthor: e.target.value});
     handleDescription = e=> this.setState({fieldDescription: e.target.value});
-    handleGenero = (e, {value}) => this.setState({fieldGenero: value});
+    handleGenero = (e, {value}) => this.setState({fieldGameGenero: value});
     handleThemeColor = (e, {value}) =>this.setState({fieldThemeColor: value});
 
-    /*findSelectGenero () { const genero = document.getElementById("selectGenero")
-    console.log(genero.value);
-};*/
+    componentDidMount = async ()=>{
+        const {client} = this.context;
+        const response = await client.query({query: GET_ALL_GAME_GENEROS});
+        this.setState({gameGeneroList: response.data.gameGeneros.map(item=>{
+            return {key: item.id, text: item.name, value: item.id};
+        })})
+    }
 
     saveGame =()=>{
-        const {fieldName, fieldAuthor,fieldGenero, fieldThemeColor ,fieldDescription} = this.state;
+        const {fieldName, fieldAuthor, fieldThemeColor ,fieldDescription,fieldGameGenero} = this.state;
         const {client} = this.context;
 
         client.mutate({
@@ -153,14 +155,14 @@ export default class Games extends Component {
             variables: {
                 name: fieldName,
                 author: fieldName,
-                genero: fieldGenero,
                 themeColor: fieldThemeColor,
-                description: fieldDescription
+                description: fieldDescription,
+                gameGeneroId: fieldGameGenero
             }
         }).then(res=> console.log(res))
         .catch(error => console.log(error));
         console.log(client);
-        console.log({name: fieldName, author: fieldAuthor, genero:fieldGenero, themeColor: fieldThemeColor, description: fieldDescription});
+        console.log({name: fieldName, author: fieldAuthor, themeColor: fieldThemeColor, description: fieldDescription, gameGeneroId:fieldGameGenero});
     }
 
     render() {
@@ -211,10 +213,9 @@ export default class Games extends Component {
                                                     <Form.Input fluid label='Nombre' placeholder='Nombre' onChange={this.handleName} />
                                                     <Form.Input fluid label='Autor' placeholder='Autor' onChange={this.handleAuthor} />
                                                     <Form.Select
-                                                        id='selectGenero'
                                                         fluid
                                                         label='Género'
-                                                        options={generoOptions}
+                                                        options={this.state.gameGeneroList}
                                                         placeholder='Genero'
                                                         onChange={this.handleGenero}
                                                     />

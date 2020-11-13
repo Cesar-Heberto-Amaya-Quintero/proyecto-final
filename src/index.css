@@ -35,13 +35,26 @@ body .ui.cards>.card{
   background-color: #311361;
   margin: 30px;
   color: white;
-  font-size: medium;
+  font-size: large;
+  align-items: baseline;
+  block-size: auto;
+  float: left;
 }
 
-div.header{
+div.headerGame{
   color: white;
 }
 
+div.image{
+ width: 100%;
+}
+
+div.table {
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.ui.table tr td { border-top: 0px !important; }
 
 .ui.card>.content>a.header,
 .ui.cards>.card>.content>a.header,
@@ -56,4 +69,3 @@ div.header{
   font-size: x-large;
  
 }
-

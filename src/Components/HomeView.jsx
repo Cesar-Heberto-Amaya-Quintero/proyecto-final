@@ -10,23 +10,22 @@ const GET_ALL_GAMES = gql`
             id
             name
             author
-            genero
             imageUrl
             themeColor
             description
+            gameGenero {
+                name
+            }
   }
 }
 `;
 
-const transitions = [
-    'browse'
-]
 
 
 
 
 export default class HomeView extends Component {
-    state = { animation: transitions[0], duration: 500, visible: true }
+
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
@@ -46,7 +45,6 @@ export default class HomeView extends Component {
         this.setState({ games: response.data.games });
         console.log(response.data.games);
     }
-
 
 
     sendToHome = () => this.props.history.push({ pathname: '/' });
@@ -77,7 +75,7 @@ export default class HomeView extends Component {
                                     <span class='date'>{game.author}</span>
                                 </div>
                                 <div class="description">
-                                    {game.genero}
+                                    {game.gameGenero.name}
                                 </div>
 
                             </div>
@@ -97,20 +95,18 @@ export default class HomeView extends Component {
     }
 
     render() {
-        const { animation, duration, visible } = this.state;
+    
         let bannerImage = 'https://cdn.discordapp.com/attachments/775558235809120268/776280317643456532/DIMEN.PLA.2.png';
 
         return (
            
                 <Fragment>
-
+                    <div class="table">
                     {/* MENU VERTICAL A LA IZQUIERDA*/}
-                    <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact fixed >
-
+                    <div class="ui table"></div><Table style={{ backgroundColor: '#170132' }} key='black' inverted compact fixed >
                         <Table.Body>
-
+                            
                             <Table.Row>
-
                                 <Table.HeaderCell style={{ backgroundColor: '#320A40' }} width='2'>
                                     <Menu style={{ backgroundColor: '#000' }} vertical inverted fixed='left' size='large'   >
 
@@ -131,18 +127,18 @@ export default class HomeView extends Component {
 
 
                                 <Table.HeaderCell textAlign='center'>
-                                    <div class="banner">
-
+                           
+                                <div class="image">
                                             <Image fluid src='https://cdn.discordapp.com/attachments/775558235809120268/776280317643456532/DIMEN.PLA.2.png' />
 
-                                    </div>
+                                </div>
                                     <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact>
                                         <Table.Body >
                                             <Table.Row>
                                                 <Table.Cell textAlign>
 
                                                     <Segment style={{ backgroundColor: '#170132' }} >
-                                                    <div class='header'color='white' as='h2' icon='game' content='Game' />
+                                                    <Header style={{ backgroundColor: '#170132' }} textAlign='center' inverted as='h2' icon='game' content='Game' />
                                                        
                                                     </Segment>
 
@@ -163,6 +159,7 @@ export default class HomeView extends Component {
                         </Table.Body>
 
                     </Table>
+                    </div>
 
 
 

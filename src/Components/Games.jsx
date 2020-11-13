@@ -10,10 +10,10 @@ const GET_ALL_GAMES = gql`
             id
             name
             author
-            genero
             imageUrl
             themeColor
             description
+
   }
 }
 `;
@@ -199,11 +199,6 @@ export default class HomeView extends Component {
                         </Table.Body>
 
                     </Table>
-
-
-
-
-
 
                 </Fragment>
     
