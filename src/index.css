@@ -11,3 +11,49 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* div.banner
+{
+  width: 100%;
+} */
+
+
+
+div.banner {
+  width: 100px;
+  height: 100px;
+  /* background: none; */
+  /* transition: width 2s; */
+}
+
+/* div.banner:hover {
+  width: 300px;
+} */
+
+body .ui.cards>.card{
+  box-shadow: none;
+  background-color: #311361;
+  margin: 30px;
+  color: white;
+  font-size: medium;
+}
+
+div.header{
+  color: white;
+}
+
+
+.ui.card>.content>a.header,
+.ui.cards>.card>.content>a.header,
+.ui.card .meta,
+.ui.card .header,
+.ui.cards>.card .meta,
+.ui.card>.content>.description,
+.ui.cards>.card>.content>.description,
+.ui.card>.extra a:not(.ui),
+.ui.cards>.card>.extra a:not(.ui) {
+  color: white;
+  font-size: x-large;
+ 
+}
+

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { Divider, Header, Segment, Menu, Image, Rating, Embed, Card, List, Table, Reveal } from 'semantic-ui-react';
+import { Divider, Header, Segment, Menu, Image, Rating, Embed, Card, List, Table, Reveal, Form, Grid, Transition } from 'semantic-ui-react';
 
 import { getApolloContext, gql } from '@apollo/client';
 
@@ -18,11 +18,24 @@ const GET_ALL_GAMES = gql`
 }
 `;
 
+const transitions = [
+    'browse'
+]
+
+
+
 
 export default class HomeView extends Component {
+    state = { animation: transitions[0], duration: 500, visible: true }
+
+    handleChange = (e, { name, value }) => this.setState({ [name]: value })
+
+    handleVisibility = () =>
+        this.setState((prevState) => ({ visible: !prevState.visible }))
+
 
     state = {
-        games: []
+        games: [],
     }
 
     static contextType = getApolloContext();
@@ -33,6 +46,8 @@ export default class HomeView extends Component {
         this.setState({ games: response.data.games });
         console.log(response.data.games);
     }
+
+
 
     sendToHome = () => this.props.history.push({ pathname: '/' });
 
@@ -47,38 +62,46 @@ export default class HomeView extends Component {
     showGames = () => {
         return this.state.games.map(game => {
             console.log(game);
+
             return <Fragment >
+
                 {/* MOSTRAR TARJETAS CON LA INFO DE LOS JUEGOS */}
                 <List.Item >
-                    <Card style={{ backgroundColor: '#fff' }} fluid onClick={() => this.sendToInfoGame(game.id)}>
-                        <Image label={{ color: 'red', corner: 'bottom', icon: 'heart' }} size='medium'
-                            src={game.imageUrl} />
-                        <Card.Content>
-                            <Card.Header color='white' >{game.name}</Card.Header>
-                            <Card.Meta>
-                                <span className='date'>{game.author}</span>
-                            </Card.Meta>
-                            <Card.Description content textAlign='center'>
-                                {game.genero}
-                            </Card.Description>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <Rating defaultRating={3} maxRating={4} />
-                        </Card.Content>
-                    </Card>
+                    <div class="ui cards" >
+                        <Card fluid onClick={() => this.sendToInfoGame(game.id)}>
+                            <Image label={{ color: 'red', corner: 'bottom', icon: 'heart' }} size='medium'
+                                src={game.imageUrl} />
+                            <div class="content">
+                                <a class="header">{game.name}</a>
+                                <div class="meta">
+                                    <span class='date'>{game.author}</span>
+                                </div>
+                                <div class="description">
+                                    {game.genero}
+                                </div>
+
+                            </div>
+                            <div class="extra content">
+                                <Rating defaultRating={3} maxRating={4} />
+                            </div>
+                        </Card>
+                    </div>
                 </List.Item>
 
                 <Divider vertical hidden />
 
             </Fragment>
 
+
         })
     }
 
     render() {
+        const { animation, duration, visible } = this.state;
+        let bannerImage = 'https://cdn.discordapp.com/attachments/775558235809120268/776280317643456532/DIMEN.PLA.2.png';
 
         return (
-            <div style={{ backgroundColor: '#170132' }}>
+           
                 <Fragment>
 
                     {/* MENU VERTICAL A LA IZQUIERDA*/}
@@ -89,7 +112,7 @@ export default class HomeView extends Component {
                             <Table.Row>
 
                                 <Table.HeaderCell style={{ backgroundColor: '#320A40' }} width='2'>
-                                    <Menu style={{backgroundColor: '#000' }} vertical inverted fixed='left' size='large'   >
+                                    <Menu style={{ backgroundColor: '#000' }} vertical inverted fixed='left' size='large'   >
 
                                         <Menu.Item
                                             name='Home' icon='home' onClick={this.sendToHome}
@@ -107,24 +130,20 @@ export default class HomeView extends Component {
                                 </Table.HeaderCell>
 
 
-                                <Table.HeaderCell>
-                                <Reveal animated='move' instant>
-                                    <Reveal.Content visible>
-                                    <Image spaced fluid src='https://cdn.discordapp.com/attachments/775558235809120268/776280317643456532/DIMEN.PLA.2.png' />
-                                    </Reveal.Content>
-                                    <Reveal.Content hidden>
-                                    <Image spaced fluid src='https://cdn.discordapp.com/attachments/775558235809120268/776281592473714708/PLAY.2.DIM.png' />
-                                    </Reveal.Content>
-                                </Reveal>
-                                    
+                                <Table.HeaderCell textAlign='center'>
+                                    <div class="banner">
 
-                                    <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact textAlign='center'>
+                                            <Image fluid src='https://cdn.discordapp.com/attachments/775558235809120268/776280317643456532/DIMEN.PLA.2.png' />
+
+                                    </div>
+                                    <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact>
                                         <Table.Body >
                                             <Table.Row>
                                                 <Table.Cell textAlign>
 
-                                                    <Segment style={{ backgroundColor: '#170132' }} inverted textAlign='center'>
-                                                        <Header style={{ backgroundColor: '#170132' }} textAlign='center' color='black' as='h2' icon='game' content='Game' />
+                                                    <Segment style={{ backgroundColor: '#170132' }} >
+                                                    <div class='header'color='white' as='h2' icon='game' content='Game' />
+                                                       
                                                     </Segment>
 
                                                     <List horizontal celled >
@@ -180,11 +199,9 @@ export default class HomeView extends Component {
                 
                 </Segment> */}
 
-                
-
 
                 </Fragment>
-            </div>
+    
         );
     }
 }
