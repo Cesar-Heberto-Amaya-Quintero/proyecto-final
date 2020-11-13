@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { Divider, Header, Segment, Menu, Image, Rating, Embed, Card, List, Table, Reveal, Form, Grid, Transition } from 'semantic-ui-react';
+import { Divider, Header, Menu, Image, Rating, Embed, Card, List, Grid, Button } from 'semantic-ui-react';
 
 import { getApolloContext, gql } from '@apollo/client';
 
@@ -65,19 +65,17 @@ export default class HomeView extends Component {
 
                 {/* MOSTRAR TARJETAS CON LA INFO DE LOS JUEGOS */}
                 <List.Item >
-                    <div class="ui cards" >
+                    <div class="cartaJuego" >
                         <Card fluid onClick={() => this.sendToInfoGame(game.id)}>
                             <Image label={{ color: 'red', corner: 'bottom', icon: 'heart' }} size='medium'
                                 src={game.imageUrl} />
-                            <div class="content">
-                                <a class="header">{game.name}</a>
-                                <div class="meta">
-                                    <span class='date'>{game.author}</span>
+                            <div class="textoCarta">
+                                <h1 >{game.name}</h1>
+                                    <Header inverted as="h2" textAlign="center">{game.author}</Header>
+                                <div class="textoCarta">
+                                    <Header inverted as="h4" textAlign="center">{game.gameGenero.name}</Header>
+                                    
                                 </div>
-                                <div class="description">
-                                    {game.gameGenero.name}
-                                </div>
-
                             </div>
                             <div class="extra content">
                                 <Rating defaultRating={3} maxRating={4} />
@@ -95,110 +93,93 @@ export default class HomeView extends Component {
     }
 
     render() {
-    
-        let bannerImage = 'https://cdn.discordapp.com/attachments/775558235809120268/776280317643456532/DIMEN.PLA.2.png';
+
 
         return (
-           
-                <Fragment>
-                    <div class="table">
-                    {/* MENU VERTICAL A LA IZQUIERDA*/}
-                    <div class="ui table"></div><Table style={{ backgroundColor: '#170132' }} key='black' inverted compact fixed >
-                        <Table.Body>
-                            
-                            <Table.Row>
-                                <Table.HeaderCell style={{ backgroundColor: '#320A40' }} width='2'>
-                                    <Menu style={{ backgroundColor: '#000' }} vertical inverted fixed='left' size='large'   >
+            <div class='fondo'>
+            <Fragment>
 
-                                        <Menu.Item
-                                            name='Home' icon='home' onClick={this.sendToHome}
+                {/* MENU VERTICAL A LA IZQUIERDA*/}
 
-                                        />
-                                        <Menu.Item
-                                            name='Juegos' icon='game' onClick={this.sendToGames}
-
-
-                                        />
-                                        <Menu.Item
-                                            name='Top trending' icon='star' onClick={this.sendToTops}
-                                        />
-                                    </Menu>
-                                </Table.HeaderCell>
-
-
-                                <Table.HeaderCell textAlign='center'>
-                           
-                                <div class="image">
-                                            <Image fluid src='https://cdn.discordapp.com/attachments/775558235809120268/776280317643456532/DIMEN.PLA.2.png' />
-
-                                </div>
-                                    <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact>
-                                        <Table.Body >
-                                            <Table.Row>
-                                                <Table.Cell textAlign>
-
-                                                    <Segment style={{ backgroundColor: '#170132' }} >
-                                                    <Header style={{ backgroundColor: '#170132' }} textAlign='center' inverted as='h2' icon='game' content='Game' />
-                                                       
-                                                    </Segment>
-
-                                                    <List horizontal celled >
-                                                        {this.showGames()}
-                                                    </List>
-
-                                                </Table.Cell>
-
-                                            </Table.Row>
-
-                                        </Table.Body>
-                                    </Table>
-                                </Table.HeaderCell>
-
-                            </Table.Row>
-
-                        </Table.Body>
-
-                    </Table>
-                    </div>
-
-
-
-                    {/* CONTENIDO LADO DERECHO PANTALLA */}
-
-
-
-                    {/* <Segment inverted>
-                      <Menu inverted widths='5' fixed='top' size='massive' >
-                    
-                    <Image size='small'  src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
-
+                <Menu style={{ backgroundColor: '#000' }} fixed='top' inverted size='large' >
                     <Menu.Item
-                        name='Home' icon='home'  onClick={this.sendToHome}
-                    /> 
-                    <Menu.Item
-                        name='Juegos' icon='game'  onClick={this.sendToGames} 
-
+                        name='Home' icon='home' onClick={this.sendToHome}
                     />
-                    
                     <Menu.Item
-                        name='Top trending' icon='star'  onClick={this.sendToTops}
+                        name='Juegos' icon='game' onClick={this.sendToGames}
                     />
-                    </Menu>
-                    
+                    <Menu.Item
+                        name='Top trending' icon='star' onClick={this.sendToTops}
+                    />
+                </Menu>
             
-                    <Divider hidden></Divider>
-                     { <Embed
-                    id='Yg3LhyQGSu8'
-                    placeholder='https://as.com/meristation/imagenes/2020/09/04/noticias/1599237499_919231_1599237606_noticia_normal.jpg'
-                    source='youtube'
-                /> } 
+                <Image fluid src='https://cdn.discordapp.com/attachments/775558235809120268/776280317643456532/DIMEN.PLA.2.png' />
 
                 
-                </Segment> */}
 
+                <Divider hidden/>
 
-                </Fragment>
-    
+                <div class="fondo">
+                    <Grid columns={2} relaxed='very'>
+                    <Grid.Column>
+                        <div class="imagenMargenes">
+                            <div class="imagen">
+                            <Embed
+                                id='UAO2urG23S4'
+                                placeholder='https://as01.epimg.net/meristation/imagenes/2018/09/11/header_image/723533421536694195.png'
+                                source='youtube'
+                            />
+                            </div>
+                        </div>
+                    </Grid.Column>
+                    <Grid.Column verticalAlign='middle'>
+                        <div class="textoMargenes">
+                            <div class="texto">
+                                <span>
+                                El modo de juego de Hollow Knight se enfoca principalmente en exploración, plataformas y combate. 
+                                Los jugadores exploran un gran mundo interconectado usando una variedad de movimientos y técnicas de combate. 
+                                Al clásico estilo metroidvania, existen áreas del mundo a las que los jugadores no pueden acceder hasta que hayan obtenido algún objeto o habilidad particular. 
+                                Los mapas de cada zona deben comprarse a un cartógrafo que generalmente se encuentra escondido en esa área, y el jugador también puede comprar mejoras que permiten colocar marcadores en el mapa, 
+                                o revelar partes del mismo a medida que van explorando. El guardado del juego sólo puede hacerse en los bancos para descansar que se encuentran esparcidos por todo el reino.
+                                Al sentarse en un banco, el mapa se actualizará con las zonas recientemente descubiertas por el Caballero, a su vez que regenera su salud en caso que la haya perdido.
+                                </span>
+                            </div>
+                            
+                        </div>
+                        <Divider hidden/>
+                        <div class="boton">
+                            <Button inverted size='huge'>Sube tu juego</Button>
+                        </div>
+                        
+                    </Grid.Column>
+                    </Grid>
+                
+                    <Divider vertical hidden></Divider>
+                </div>
+                <Divider hidden/>
+
+                <div class="titulo">
+                    <Header inverted>Catálogo de juegos</Header>
+                </div>
+                
+
+                <Divider hidden/>
+                <div class="listaJuegos">
+                    <List horizontal celled >
+                        {this.showGames()}
+                    </List>
+                </div>
+
+                <div class="boton">
+                    <Button onClick={this.sendToGames} inverted size='huge'>Ver más juegos</Button>
+                </div>
+
+                <Divider hidden/>
+
+                
+
+            </Fragment>
+            </div>
         );
     }
 }

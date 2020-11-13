@@ -1,85 +1,55 @@
 import React, { Component, Fragment } from 'react';
 
-import { Divider, Header, Segment, Menu, Image, Rating, Embed, Card, List, Table, Reveal, Form, Grid, Transition } from 'semantic-ui-react';
+import { Divider, Button, Header, Segment, Menu, Image, Rating, Embed, Card, List, Table, Reveal, Form, Grid, Transition, Icon } from 'semantic-ui-react';
 
 import { getApolloContext, gql } from '@apollo/client';
 
-const GET_ALL_GAMES = gql`
+
+const GET_ALL_GAME_GENEROS = gql`
     {
-        games{
+        gameGeneros{
             id
             name
-            author
-            imageUrl
-            themeColor
-            description
-
-  }
-}
+            games {
+                id
+                name
+                author
+                imageUrl
+                themeColor
+                description
+            }
+        }
+    }
 `;
 
-const generoOptions = [
-    {  text: 'Aventura', value: 'Aventura'},
-    {  text: 'Disparos', value: 'Disparos' },
-    {  text: 'Educativos', value: 'Educativos' },
-    {  text: 'Estrategia', value: 'Estrategia' },
-    {  text: 'Survival horror', value: 'Survivalhorror' },
-    {  text: 'Plataformas', value: 'Plataforma' },
-    {  text: 'Rol', value: 'Rol' },
-    {  text: 'Musicales', value: 'Musicales' },
-    {  text: 'Party games', value: 'Partygames' },
-    {  text: 'Simulación', value: 'Simulacion' },
-    {  text: 'Carreras', value: 'Carreras' },
-    {  text: 'Otro', value: 'Otro' },
-]
 
-
-
-
-
-export default class HomeView extends Component {
-
+export default class Games extends Component {
 
     state = {
+        gameGeneros: [],
+        gameGeneroList: [],
         games: [],
-        id: '',
-        name: '',
-        author: '',
-        genero: '',
-        imageUrl: '',
-        themeColor:'',
-        description: ''
     }
 
     static contextType = getApolloContext();
 
-    componentDidMount = async () => {
-        const { client } = this.context;
-        const response = await client.query({ query: GET_ALL_GAMES });
-        this.setState({ games: response.data.games });
-        console.log(response.data.games);
+    handleGenero = (e, { value }) => {
+        console.log(value);
+        const genero = this.state.gameGeneros.find(genero => genero.id === value);
+        this.setState({ games: genero.games });
+        console.log(genero.games);
+        //console.log(this.state.games)
     }
 
-    handleGenero = (e, {value}) =>{
-        console.log(value);
-        this.state.games.map(game=>{
-            if (game.genero === value)
-            {
-                
-                this.state.name=game.name;
-                this.state.author=game.author;
-                this.state.genero=game.genero;
-                this.state.themeColor=game.themeColor;
-                this.state.imageUrl=game.imageUrl;
-                this.state.description=game.description;
-                {this.showGames()}
-                console.log(this.state.name, this.state.author, this.state.genero, this.state.themeColor, this.state.imageUrl, this.state.description);
-            }
-            
-        })
-        
-        //const group = this.state.games.genero.find(group =>group.genero === value);
-        //this.setState({games: group.games});
+    componentDidMount = async () => {
+        const { client } = this.context;
+        const response = await client.query({ query: GET_ALL_GAME_GENEROS });
+        this.setState({
+            gameGeneros: response.data.gameGeneros,
+            gameGeneroList: response.data.gameGeneros.map(gameGenero => {
+                return { key: gameGenero.id, value: gameGenero.id, text: gameGenero.name }
+            })
+        });
     }
 
     sendToHome = () => this.props.history.push({ pathname: '/' });
@@ -90,15 +60,16 @@ export default class HomeView extends Component {
 
     sendToTops = () => this.props.history.push({ pathname: '/top' });
 
-    showId = id => console.log(id);
-
     showGames = () => {
         return this.state.games.map(game => {
             console.log(game);
 
-            return <Fragment >
+            return <Fragment style={{ backgroundColor: '#00293C' }}>
 
                 {/* MOSTRAR TARJETAS CON LA INFO DE LOS JUEGOS */}
+
+
+
                 <List.Item >
                     <div class="ui cards" >
                         <Card fluid onClick={() => this.sendToInfoGame(game.id)}>
@@ -110,7 +81,7 @@ export default class HomeView extends Component {
                                     <span class='date'>{game.author}</span>
                                 </div>
                                 <div class="description">
-                                    {game.genero}
+                                    {game.description}
                                 </div>
 
                             </div>
@@ -125,83 +96,51 @@ export default class HomeView extends Component {
 
             </Fragment>
 
-
         })
     }
 
     render() {
-        
 
         return (
-           
-                <Fragment>
 
-                    {/* MENU VERTICAL A LA IZQUIERDA*/}
-                    <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact fixed >
+            <Fragment>
 
-                        <Table.Body>
+                {/* MENU VERTICAL A LA IZQUIERDA*/}
+                <input id="abrir-cerrar" name="abrir-cerrar" type="checkbox" value="" />
+                <label for="abrir-cerrar">
+                    &#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
+                <div id="sidebar" class="sidebar">
+                    <ul class="menu">
+                        <div class="image">
+                            <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
+                        </div>
+                        <div class="icon">
+                        <Icon name="home" size="large" inverted/><li onClick={this.sendToHome} name='Home' icon='home'><a href="#">Home</a></li>
+                        <Icon name="game" size="large" inverted/><li onClick={this.sendToGames}><a href="#">Juegos</a></li>
+                        <Icon name="star" size="large" inverted/><li onClick={this.sendToTops}><a href="#">Top trending</a></li>
+                        </div>
+                    </ul>
+                </div>
 
-                            <Table.Row>
+                <Divider></Divider>
 
-                                <Table.HeaderCell style={{ backgroundColor: '#320A40' }} width='2'>
-                                    <Menu style={{ backgroundColor: '#000' }} vertical inverted fixed='left' size='large'   >
+                <div id="contenido">
+                    <Form.Select
 
-                                        <Menu.Item
-                                            name='Home' icon='home' onClick={this.sendToHome}
+                        options={this.state.gameGeneroList}
+                        placeholder='Genero'
+                        onChange={this.handleGenero}
+                    />
+                    <Segment style={{ backgroundColor: '#170132' }} >
+                        <Header style={{ backgroundColor: '#170132' }} textAlign='center' inverted as='h2' icon='game' content='Game' />
+                        <List horizontal celled >
+                            {this.showGames()}
+                        </List>
+                    </Segment>
+                </div>
+            </Fragment>
 
-                                        />
-                                        <Menu.Item
-                                            name='Juegos' icon='game' onClick={this.sendToGames}
-
-
-                                        />
-                                        <Menu.Item
-                                            name='Top trending' icon='star' onClick={this.sendToTops}
-                                        />
-                                    </Menu>
-                                </Table.HeaderCell>
-
-
-                                <Table.HeaderCell textAlign='center'>
-
-
-
-                                    <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact textAlign='center'>
-                                        <Table.Body >
-                                            <Table.Row>
-                                                <Table.Cell textAlign>
-
-                                                <Form.Select
-                                                        id='selectGenero'
-                                                        options={generoOptions}
-                                                        placeholder='Genero'
-                                                        onChange={this.handleGenero}
-                                                    />
-
-                                                    <Segment style={{ backgroundColor: '#170132' }} inverted textAlign='center'>
-                                                        <Header style={{ backgroundColor: '#170132' }} textAlign='center' color='black' as='h2' icon='game' content='Game' />
-                                                    </Segment>
-
-                                                    <List horizontal celled >
-                                                        {this.showGames()}
-                                                    </List>
-
-                                                </Table.Cell>
-
-                                            </Table.Row>
-
-                                        </Table.Body>
-                                    </Table>
-                                </Table.HeaderCell>
-
-                            </Table.Row>
-
-                        </Table.Body>
-
-                    </Table>
-
-                </Fragment>
-    
         );
     }
 }
+

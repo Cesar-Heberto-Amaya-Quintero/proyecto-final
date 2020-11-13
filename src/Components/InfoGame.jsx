@@ -21,7 +21,7 @@ const GET_GAME_BY_ID = gql`
 
 
 
-export default class Games extends Component {
+export default class InfoGame extends Component {
 
     state = {
         id: '',

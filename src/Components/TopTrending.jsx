@@ -111,7 +111,7 @@ const colorOptions = [
     }
 ]
 
-export default class Games extends Component {
+export default class TopTrending extends Component {
 
     state = {
         gameGeneroList: [],
