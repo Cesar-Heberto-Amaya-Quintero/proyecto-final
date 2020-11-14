@@ -20,6 +20,7 @@
     monospace;
 }
 
+
 .texto {
   text-align: center;
   text-justify: auto;
@@ -84,38 +85,6 @@ body .ui.cards>.card{
 
 }
 
-div.headerGame{
-  color: white;
-}
-
-div.image{
- width: 100%;
-}
-
-
-
-
-.ui.table tr td{ 
-  border-collapse: collapse;
-  text-align: center;
-  padding: 10;
-  text-align: left;
-}
-
-div.headerGame{
-  background-color: #00293C; 
-  border-collapse: collapse;
-  color: #00293C;
-  text-align: center;
-}
-
-
-
-
-div.form{
-  float: right;
-}
-
 .ui.card>.content>a.header,
 .ui.cards>.card>.content>a.header,
 .ui.card .meta,
@@ -151,6 +120,40 @@ input#abrir-cerrar:checked + label[for="abrir-cerrar"] .abrir {
   display:none;
 }
 
+div.headerGame{
+  color: white;
+}
+
+div.image{
+ width: 100%;
+}
+
+
+
+
+.ui.table tr td{ 
+  border-collapse: collapse;
+  text-align: center;
+  padding: 10;
+  text-align: left;
+}
+
+div.headerGame{
+  background-color: #00293C; 
+  border-collapse: collapse;
+  color: #00293C;
+  text-align: center;
+}
+
+
+
+
+div.form{
+  float: right;
+}
+
+
+
 header {
   background:#333;
   color:#eee;
@@ -185,7 +188,7 @@ label[for="abrir-cerrar"] {
 }
 
 #contenido {
-  margin-left:0;
+  text-align: center;
 }
 
 input#abrir-cerrar:checked ~ #sidebar {
@@ -217,7 +220,7 @@ input#abrir-cerrar:checked + label[for="abrir-cerrar"] .abrir {
   transition: 0.4s;
   padding: 1rem 0;
   box-sizing:border-box;
-  
+
 }
 
 .sidebar .boton-cerrar {
