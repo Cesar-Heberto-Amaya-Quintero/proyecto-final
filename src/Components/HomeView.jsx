@@ -117,11 +117,9 @@ export default class HomeView extends Component {
 
                 {/* MENU VERTICAL A LA IZQUIERDA*/}
                 
-                <div class="content">    
+                
                     <input id="abrir-cerrar" name="abrir-cerrar" type="checkbox" value="" />
-                    <label for="abrir-cerrar">
-                        &#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
-                    
+                    <label for="abrir-cerrar">&#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
                     <div id="sidebar" class="sidebar">
                         <ul class="menu">
                             <div class="image">
@@ -132,10 +130,9 @@ export default class HomeView extends Component {
                             <Icon name="game" size="large" inverted/><li onClick={this.sendToGames}><a href="#">Juegos</a></li>
                             <Icon name="star" size="large" inverted/><li onClick={this.sendToTops}><a href="#">Top trending</a></li>
                             </div>
-                            
                         </ul> 
                     </div>
-                    
+                    <div id="contenido">    
                     <div class="fondo">
 
                         <Image fluid src='https://cdn.discordapp.com/attachments/775558235809120268/776280317643456532/DIMEN.PLA.2.png' />
@@ -212,6 +209,7 @@ export default class HomeView extends Component {
                         </div>
                     </div>
                 </div>
+            
             </Fragment>
             
         );

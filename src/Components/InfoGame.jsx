@@ -61,23 +61,25 @@ export default class InfoGame extends Component {
             <Fragment>
 
                 {/* CÓDIGO PARA LA PARTE DE MENU E IMAGEN*/}
+                <input id="abrir-cerrar" name="abrir-cerrar" type="checkbox" value="" />
+                    <label for="abrir-cerrar">&#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
+                    <div id="sidebar" class="sidebar">
+                        <ul class="menu">
+                            <div class="image">
+                                <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
+                            </div>
+                            <div class="icon">
+                                <Icon name="home" size="large" inverted /><li onClick={this.sendToHome} name='Home' icon='home'><a href="#">Home</a></li>
+                                <Icon name="game" size="large" inverted /><li onClick={this.sendToGames}><a href="#">Juegos</a></li>
+                                <Icon name="star" size="large" inverted /><li onClick={this.sendToTops}><a href="#">Top trending</a></li>
+                            </div>
+                        </ul>
+                    </div>
+                    <div id="contenido">
 
                 <Table color='black' key='black' inverted compact fixed>
                     <Table.Body>
                         <Table.Row>
-                            <Table.HeaderCell width='2'>
-                                <Menu vertical inverted style={{ backgroundColor: '#000' }} pointing fixed='left' size='large'  >
-                                    <Menu.Item
-                                        name='Home' icon='home' onClick={this.sendToHome}
-                                    />
-                                    <Menu.Item
-                                        name='Juegos' icon='game' onClick={this.sendToGames}
-                                    />
-                                    <Menu.Item
-                                        name='Top trending' icon='star' onClick={this.sendToTops}
-                                    />
-                                </Menu>
-                            </Table.HeaderCell>
                             <Table.HeaderCell>
 
                                 <Segment inverted color={this.state.themeColor}>
@@ -146,7 +148,7 @@ export default class InfoGame extends Component {
                     </Table.Body>
                 </Table>
 
-
+                </div>
             </Fragment>
         );
 

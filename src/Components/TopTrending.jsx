@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import {getApolloContext, gql} from '@apollo/client';
-import { Button, Header, Icon, Segment, Menu, Image, Sidebar, Form, Checkbox, Divider, Select, Dropdown,Table, List } from 'semantic-ui-react'
+import { getApolloContext, gql } from '@apollo/client';
+import { Button, Header, Icon, Segment, Menu, Image, Sidebar, Form, Checkbox, Divider, Select, Dropdown, Table, List } from 'semantic-ui-react'
 
- const ADD_GAME =gql`
+const ADD_GAME = gql`
     mutation($name: String!, $author: String!, $themeColor: String! ,$description: String!, $gameGeneroId: ID!)
     {
         addGame(name:$name, author:$author,themeColor: $themeColor,description:$description, gameGeneroId: $gameGeneroId)
@@ -20,7 +20,7 @@ import { Button, Header, Icon, Segment, Menu, Image, Sidebar, Form, Checkbox, Di
     }
 `;
 
-const GET_ALL_GAME_GENEROS= gql `
+const GET_ALL_GAME_GENEROS = gql`
     {
         gameGeneros{
             id
@@ -117,12 +117,12 @@ export default class TopTrending extends Component {
         gameGeneroList: [],
         fieldName: '',
         fieldAuthor: '',
-        fieldDescription:'', 
+        fieldDescription: '',
         fieldThemeColor: '',
         fieldGameGenero: '',
     }
 
-    static contextType = getApolloContext(); 
+    static contextType = getApolloContext();
 
     sendToHome = () => this.props.history.push({ pathname: '/' });
 
@@ -132,23 +132,25 @@ export default class TopTrending extends Component {
 
     //handleGameGenero = (e, { value }) => this.setState({ fieldGameGenero: value });
 
-    handleName = e => this.setState({fieldName: e.target.value});
-    handleAuthor = e=> this.setState ({fieldAuthor: e.target.value});
-    handleDescription = e=> this.setState({fieldDescription: e.target.value});
-    handleGenero = (e, {value}) => this.setState({fieldGameGenero: value});
-    handleThemeColor = (e, {value}) =>this.setState({fieldThemeColor: value});
+    handleName = e => this.setState({ fieldName: e.target.value });
+    handleAuthor = e => this.setState({ fieldAuthor: e.target.value });
+    handleDescription = e => this.setState({ fieldDescription: e.target.value });
+    handleGenero = (e, { value }) => this.setState({ fieldGameGenero: value });
+    handleThemeColor = (e, { value }) => this.setState({ fieldThemeColor: value });
 
-    componentDidMount = async ()=>{
-        const {client} = this.context;
-        const response = await client.query({query: GET_ALL_GAME_GENEROS});
-        this.setState({gameGeneroList: response.data.gameGeneros.map(item=>{
-            return {key: item.id, text: item.name, value: item.id};
-        })})
+    componentDidMount = async () => {
+        const { client } = this.context;
+        const response = await client.query({ query: GET_ALL_GAME_GENEROS });
+        this.setState({
+            gameGeneroList: response.data.gameGeneros.map(item => {
+                return { key: item.id, text: item.name, value: item.id };
+            })
+        })
     }
 
-    saveGame =()=>{
-        const {fieldName, fieldAuthor, fieldThemeColor ,fieldDescription,fieldGameGenero} = this.state;
-        const {client} = this.context;
+    saveGame = () => {
+        const { fieldName, fieldAuthor, fieldThemeColor, fieldDescription, fieldGameGenero } = this.state;
+        const { client } = this.context;
 
         client.mutate({
             mutation: ADD_GAME,
@@ -159,10 +161,10 @@ export default class TopTrending extends Component {
                 description: fieldDescription,
                 gameGeneroId: fieldGameGenero
             }
-        }).then(res=> console.log(res))
-        .catch(error => console.log(error));
+        }).then(res => console.log(res))
+            .catch(error => console.log(error));
         console.log(client);
-        console.log({name: fieldName, author: fieldAuthor, themeColor: fieldThemeColor, description: fieldDescription, gameGeneroId:fieldGameGenero});
+        console.log({ name: fieldName, author: fieldAuthor, themeColor: fieldThemeColor, description: fieldDescription, gameGeneroId: fieldGameGenero });
     }
 
     render() {
@@ -172,91 +174,89 @@ export default class TopTrending extends Component {
         return (
             <div style={{ backgroundColor: '#320A40' }}>
                 <Fragment>
+                    <input id="abrir-cerrar" name="abrir-cerrar" type="checkbox" value="" />
+                    <label for="abrir-cerrar">&#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
+                    <div id="sidebar" class="sidebar">
+                        <ul class="menu">
+                            <div class="image">
+                                <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
+                            </div>
+                            <div class="icon">
+                                <Icon name="home" size="large" inverted /><li onClick={this.sendToHome} name='Home' icon='home'><a href="#">Home</a></li>
+                                <Icon name="game" size="large" inverted /><li onClick={this.sendToGames}><a href="#">Juegos</a></li>
+                                <Icon name="star" size="large" inverted /><li onClick={this.sendToTops}><a href="#">Top trending</a></li>
+                            </div>
+                        </ul>
+                    </div>
+                    <div id="contenido">
 
-                <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact fixed >
+                    <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact fixed >
 
-                    <Table.Body>
+                        <Table.Body>
 
-                        <Table.Row>
-
-                            <Table.HeaderCell style={{ backgroundColor: '#320A40' }} width='2'>
-                                <Menu style={{backgroundColor: '#000' }} vertical inverted fixed='left' size='large'   >
-
-                                    <Menu.Item
-                                        name='Home' icon='home' onClick={this.sendToHome}
-
-                                    />
-                                    <Menu.Item
-                                        name='Juegos' icon='game' onClick={this.sendToGames}
-
-
-                                    />
-                                    <Menu.Item
-                                        name='Top trending' icon='star' onClick={this.sendToTops}
-                                    />
-                                </Menu>
-                            </Table.HeaderCell>
+                            <Table.Row>
 
 
-                            <Table.HeaderCell>
-                                <div style={{ backgroundColor: '#320A40' }}>
-                                    <Segment style={{ backgroundColor: '#320A40' }} vertical raised>
+                                <Table.HeaderCell>
+                                    <div style={{ backgroundColor: '#320A40' }}>
+                                        <Segment style={{ backgroundColor: '#320A40' }} vertical raised>
 
-                                        <Divider></Divider>
+                                            <Divider></Divider>
 
-                                        <Segment style={{ backgroundColor: '#320A40' }}>
-                                            <div>
-                                                <Header inverted as='h1' textAlign='center'>Sube un juego</Header>
-                                            </div>
-                                            <Form inverted>
-                                                <Form.Group widths='equal'>
-                                                    <Form.Input fluid label='Nombre' placeholder='Nombre' onChange={this.handleName} />
-                                                    <Form.Input fluid label='Autor' placeholder='Autor' onChange={this.handleAuthor} />
-                                                    <Form.Select
-                                                        fluid
-                                                        label='Género'
-                                                        options={this.state.gameGeneroList}
-                                                        placeholder='Genero'
-                                                        onChange={this.handleGenero}
-                                                    />
-                                                </Form.Group>
-                                                
-                                                <Form.TextArea width='9' label='Descripción' placeholder='Cuentanos sobre tu juego...' onChange={this.handleDescription} />
-                                                <Form.Group>
-                                                    
-                                                    <Dropdown floating
-                                                        placeholder='Selecciona un color'
-                                                        
-                                                        selection
-                                                        options={colorOptions}
-                                                        onChange={this.handleThemeColor}
-                                                    />
-                                                </Form.Group>
-                                            </Form>
-                                        </Segment>
+                                            <Segment style={{ backgroundColor: '#320A40' }}>
+                                                <div>
+                                                    <Header inverted as='h1' textAlign='center'>Sube un juego</Header>
+                                                </div>
+                                                <Form inverted>
+                                                    <Form.Group widths='equal'>
+                                                        <Form.Input fluid label='Nombre' placeholder='Nombre' onChange={this.handleName} />
+                                                        <Form.Input fluid label='Autor' placeholder='Autor' onChange={this.handleAuthor} />
+                                                        <Form.Select
+                                                            fluid
+                                                            label='Género'
+                                                            options={this.state.gameGeneroList}
+                                                            placeholder='Genero'
+                                                            onChange={this.handleGenero}
+                                                        />
+                                                    </Form.Group>
 
-                                        <Segment placeholder >
+                                                    <Form.TextArea width='9' label='Descripción' placeholder='Cuentanos sobre tu juego...' onChange={this.handleDescription} />
+                                                    <Form.Group>
 
-                                            <Header icon>
-                                                <Icon name='pdf file outline' />
+                                                        <Dropdown floating
+                                                            placeholder='Selecciona un color'
+
+                                                            selection
+                                                            options={colorOptions}
+                                                            onChange={this.handleThemeColor}
+                                                        />
+                                                    </Form.Group>
+                                                </Form>
+                                            </Segment>
+
+                                            <Segment placeholder >
+
+                                                <Header icon>
+                                                    <Icon name='pdf file outline' />
                                                 No documents are listed for this customer.
                                                 </Header>
-                                            <Button primary onClick={this.findSelectGenero}>Add Document</Button>
+                                                <Button primary onClick={this.findSelectGenero}>Add Document</Button>
 
+                                            </Segment>
+                                            <Form.Button primary onClick={() => this.saveGame()}>Publicar</Form.Button>
                                         </Segment>
-                                        <Form.Button primary onClick={()=>this.saveGame()}>Publicar</Form.Button>
-                                    </Segment>
-                                </div>
-                                
-                            </Table.HeaderCell>
+                                    </div>
 
-                        </Table.Row>
+                                </Table.HeaderCell>
 
-                    </Table.Body>
+                            </Table.Row>
+
+                        </Table.Body>
 
                     </Table>
-                    
+                    </div>
                 </Fragment>
+                
             </div>
         );
     }
