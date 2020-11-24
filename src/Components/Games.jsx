@@ -23,7 +23,6 @@ const GET_ALL_GAMES = gql`
 
 
 
-
 export default class Games extends Component {
 
 

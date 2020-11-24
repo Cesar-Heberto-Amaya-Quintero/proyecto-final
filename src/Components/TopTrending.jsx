@@ -156,7 +156,7 @@ export default class TopTrending extends Component {
             mutation: ADD_GAME,
             variables: {
                 name: fieldName,
-                author: fieldName,
+                author: fieldAuthor,
                 themeColor: fieldThemeColor,
                 description: fieldDescription,
                 gameGeneroId: fieldGameGenero
