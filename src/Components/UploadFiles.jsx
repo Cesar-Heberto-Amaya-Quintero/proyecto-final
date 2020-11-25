@@ -128,7 +128,7 @@ export default class TopTrending extends Component {
 
     sendToGames = () => this.props.history.push({ pathname: '/games' });
 
-    sendToTops = () => this.props.history.push({ pathname: '/top' });
+    sendToTops = () => this.props.history.push({ pathname: '/upload' });
 
     //handleGameGenero = (e, { value }) => this.setState({ fieldGameGenero: value });
 
@@ -172,91 +172,94 @@ export default class TopTrending extends Component {
         const { value } = this.state
 
         return (
-            <div style={{ backgroundColor: '#320A40' }}>
-                <Fragment>
-                    <input id="abrir-cerrar" name="abrir-cerrar" type="checkbox" value="" />
-                    <label for="abrir-cerrar">&#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
-                    <div id="sidebar" class="sidebar">
-                        <ul class="menu">
-                            <div class="image">
-                                <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
-                            </div>
-                            <div class="icon">
-                                <Icon name="home" size="large" inverted /><li onClick={this.sendToHome} name='Home' icon='home'><a href="#">Home</a></li>
-                                <Icon name="game" size="large" inverted /><li onClick={this.sendToGames}><a href="#">Juegos</a></li>
-                                <Icon name="star" size="large" inverted /><li onClick={this.sendToTops}><a href="#">Top trending</a></li>
-                            </div>
-                        </ul>
+
+            <div class="body">
+            <Fragment>
+                <input id="abrir-cerrar" name="abrir-cerrar" type="checkbox" value="" />
+                <label for="abrir-cerrar">&#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
+                <div id="sidebar" class="sidebar">
+                    <ul class="menu">
+                        <div class="image">
+                            <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
+                        </div>
+                        <div class="icon">
+                            <li onClick={this.sendToHome} name='Home' icon='home'><a href="#">Home</a></li>
+                            <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
+                            <li onClick={this.sendToTops}><a href="#">Top trending</a></li>
+                        </div>
+                    </ul>
+                </div>
+                <div id="contenido">
+                    <div class="fondo">
+
+                            <Segment style={{ backgroundColor: '#1a1a2e' }}>
+                                <div>
+                                    <Header inverted as='h1' textAlign='center'>Sube un juego</Header>
+                                </div>
+                                <div class="fondo">
+                                <Form inverted style={{ backgroundColor: '#1a1a2e' }} float="left">
+                                    <Form.Group widths='equal'>
+                                        <Form.Input textAlign="left" fluid label='Nombre' placeholder='Nombre' onChange={this.handleName} />
+                                        <Form.Input fluid label='Autor' placeholder='Autor' onChange={this.handleAuthor} />
+                                        <Form.Select
+                                            fluid
+                                            label='Género'
+                                            options={this.state.gameGeneroList}
+                                            placeholder='Genero'
+                                            onChange={this.handleGenero}
+                                        />
+                                    </Form.Group>
+
+                                    <Form.TextArea width='9' label='Descripción' placeholder='Cuentanos sobre tu juego...' onChange={this.handleDescription} />
+                                    <Form.Group>
+                                        <Form.Field textAlign="left" fluid label='Color' />
+                                    
+                                        <Dropdown floating
+                                            placeholder='Selecciona un color'
+                                            selection
+                                            options={colorOptions}
+                                            onChange={this.handleThemeColor}
+                                        />
+                                    </Form.Group>
+                                </Form>
+                                </div>
+                            </Segment>
+
+                            <Segment inverted placeholder style={{ backgroundColor: '#1a1a2e' }}>
+
+                                <Header icon>
+                                    <Icon name='pdf file outline' />
+                                            No documents are listed for this customer.
+                                            </Header>
+                                <Button inverted onClick={this.findSelectGenero}>Add Document</Button>
+
+                            </Segment>
+                            <Form.Button inverted onClick={() => this.saveGame()}>Publicar</Form.Button>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                            <Divider hidden/>
+                       
                     </div>
-                    <div id="contenido">
-
-                    <Table style={{ backgroundColor: '#170132' }} key='black' inverted compact fixed >
-
-                        <Table.Body>
-
-                            <Table.Row>
-
-
-                                <Table.HeaderCell>
-                                    <div style={{ backgroundColor: '#320A40' }}>
-                                        <Segment style={{ backgroundColor: '#320A40' }} vertical raised>
-
-                                            <Divider></Divider>
-
-                                            <Segment style={{ backgroundColor: '#320A40' }}>
-                                                <div>
-                                                    <Header inverted as='h1' textAlign='center'>Sube un juego</Header>
-                                                </div>
-                                                <Form inverted>
-                                                    <Form.Group widths='equal'>
-                                                        <Form.Input fluid label='Nombre' placeholder='Nombre' onChange={this.handleName} />
-                                                        <Form.Input fluid label='Autor' placeholder='Autor' onChange={this.handleAuthor} />
-                                                        <Form.Select
-                                                            fluid
-                                                            label='Género'
-                                                            options={this.state.gameGeneroList}
-                                                            placeholder='Genero'
-                                                            onChange={this.handleGenero}
-                                                        />
-                                                    </Form.Group>
-
-                                                    <Form.TextArea width='9' label='Descripción' placeholder='Cuentanos sobre tu juego...' onChange={this.handleDescription} />
-                                                    <Form.Group>
-
-                                                        <Dropdown floating
-                                                            placeholder='Selecciona un color'
-
-                                                            selection
-                                                            options={colorOptions}
-                                                            onChange={this.handleThemeColor}
-                                                        />
-                                                    </Form.Group>
-                                                </Form>
-                                            </Segment>
-
-                                            <Segment placeholder >
-
-                                                <Header icon>
-                                                    <Icon name='pdf file outline' />
-                                                No documents are listed for this customer.
-                                                </Header>
-                                                <Button primary onClick={this.findSelectGenero}>Add Document</Button>
-
-                                            </Segment>
-                                            <Form.Button primary onClick={() => this.saveGame()}>Publicar</Form.Button>
-                                        </Segment>
-                                    </div>
-
-                                </Table.HeaderCell>
-
-                            </Table.Row>
-
-                        </Table.Body>
-
-                    </Table>
-                    </div>
-                </Fragment>
+                </div>
                 
+            </Fragment>
+
             </div>
         );
     }
