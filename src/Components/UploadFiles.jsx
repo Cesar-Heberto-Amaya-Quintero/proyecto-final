@@ -174,58 +174,58 @@ export default class TopTrending extends Component {
         return (
 
             <div class="body">
-            <Fragment>
-                <input id="abrir-cerrar" name="abrir-cerrar" type="checkbox" value="" />
-                <label for="abrir-cerrar">&#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
-                <div id="sidebar" class="sidebar">
-                    <ul class="menu">
-                        <div class="image">
-                            <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
-                        </div>
-                        <div class="icon">
-                            <li onClick={this.sendToHome} name='Home' icon='home'><a href="#">Home</a></li>
-                            <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
-                            <li onClick={this.sendToTops}><a href="#">Top trending</a></li>
-                        </div>
-                    </ul>
-                </div>
-                <div id="contenido">
-                    <div class="fondo">
+                <Fragment>
+                    <input id="abrir-cerrar" name="abrir-cerrar" type="checkbox" value="" />
+                    <label for="abrir-cerrar">&#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
+                    <div id="sidebar" class="sidebar">
+                        <ul class="menu">
+                            <div class="image">
+                                <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
+                            </div>
+                            <div class="icon">
+                                <Icon name='home'/><li onClick={this.sendToHome}><a href="#">Home</a></li>
+                                <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
+                                <li onClick={this.sendToTops}><a href="#">Top trending ❥</a></li>
+                            </div>
+                        </ul>
+                    </div>
+                    <div id="contenido">
+                        <div class="fondo">
 
                             <Segment style={{ backgroundColor: '#1a1a2e' }}>
                                 <div>
                                     <Header inverted as='h1' textAlign='center'>Sube un juego</Header>
                                 </div>
                                 <div class="fondo">
-                                <Form inverted style={{ backgroundColor: '#1a1a2e' }} float="left">
-                                    <Form.Group widths='equal'>
-                                        <Form.Input textAlign="left" fluid label='Nombre' placeholder='Nombre' onChange={this.handleName} />
-                                        <Form.Input fluid label='Autor' placeholder='Autor' onChange={this.handleAuthor} />
-                                        <Form.Select
-                                            fluid
-                                            label='Género'
-                                            options={this.state.gameGeneroList}
-                                            placeholder='Genero'
-                                            onChange={this.handleGenero}
-                                        />
-                                    </Form.Group>
+                                    <Form inverted style={{ backgroundColor: '#1a1a2e' }} float="left">
+                                        <Form.Group widths='equal'>
+                                            <Form.Input textAlign="left" fluid label='Nombre' placeholder='Nombre' onChange={this.handleName} />
+                                            <Form.Input fluid label='Autor' placeholder='Autor' onChange={this.handleAuthor} />
+                                            <Form.Select
+                                                fluid
+                                                label='Género'
+                                                options={this.state.gameGeneroList}
+                                                placeholder='Genero'
+                                                onChange={this.handleGenero}
+                                            />
+                                        </Form.Group>
 
-                                    <Form.TextArea width='9' label='Descripción' placeholder='Cuentanos sobre tu juego...' onChange={this.handleDescription} />
-                                    <Form.Group>
-                                        <Form.Field textAlign="left" fluid label='Color' />
-                                    
-                                        <Dropdown floating
-                                            placeholder='Selecciona un color'
-                                            selection
-                                            options={colorOptions}
-                                            onChange={this.handleThemeColor}
-                                        />
-                                    </Form.Group>
-                                </Form>
+                                        <Form.TextArea width='9' label='Descripción' placeholder='Cuentanos sobre tu juego...' onChange={this.handleDescription} />
+                                        <Form.Group>
+                                            <Form.Field textAlign="left" fluid label='Color' />
+
+                                            <Dropdown floating
+                                                placeholder='Selecciona un color'
+                                                selection
+                                                options={colorOptions}
+                                                onChange={this.handleThemeColor}
+                                            />
+                                        </Form.Group>
+                                    </Form>
                                 </div>
                             </Segment>
 
-                            <Segment inverted placeholder style={{ backgroundColor: '#1a1a2e' }}>
+                            {/*<Segment inverted placeholder style={{ backgroundColor: '#1a1a2e' }}>
 
                                 <Header icon>
                                     <Icon name='pdf file outline' />
@@ -233,32 +233,76 @@ export default class TopTrending extends Component {
                                             </Header>
                                 <Button inverted onClick={this.findSelectGenero}>Add Document</Button>
 
-                            </Segment>
+                            </Segment> 
                             <Form.Button inverted onClick={() => this.saveGame()}>Publicar</Form.Button>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                            <Divider hidden/>
-                       
+                            */}
+                            <div>
+                                <meta charSet="UTF-8" />
+                                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                                <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+                                <title>Upload and Download Files</title>
+                                <center>
+                                    <h1>Sube tus archivos aquí!</h1>
+                                    <br /><br />
+                                    <form action="/" method="POST" encType="multipart/form-data">
+                                        <input type="file" name="pic" id="pic" /><br />
+                                        <br /><br />
+                                        <input type="submit" defaultValue="subir archivo" />
+                                    </form><br/><br/><br/><br/>
+          &lt;% if(data.length &gt; 0) {'{'}%&gt;
+          &lt;% for(var i=0; i&lt; data.length; i++) {'{'}%&gt;
+          &lt;% {'}'} %&gt;
+          <table>
+                                        <thead>
+                                            <tr>
+                                                <td>
+                                                    images
+                </td>
+                                                <td>
+                                                    download
+                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody><tr>
+                                            <td>
+                                                <img src="<%= data[i].picpath%>" alt="images" style={{ width: '100px', height: '100px' }} />
+                                                {/* <%= data[i].picpath%> */}
+                                            </td>
+                                            <td>
+                                                <form action="/download/<%= data[i]._id%>">
+                                                    <input type="submit" defaultValue="descargar" />
+                                                </form>
+                                            </td>
+                                        </tr></tbody>
+                                    </table>
+          &lt;% {'}'} %&gt;
+        </center>
+                            </div>
+
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+                            <Divider hidden />
+
+                        </div>
                     </div>
-                </div>
-                
-            </Fragment>
+
+                </Fragment>
 
             </div>
         );

@@ -10,6 +10,11 @@
   }
 }
 
+.icon{
+  width: 100px;
+  size: auto;
+}
+
 .fondo {
   background-color: #1a1a2e;
 }

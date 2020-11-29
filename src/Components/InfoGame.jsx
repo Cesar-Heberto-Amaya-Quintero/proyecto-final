@@ -146,7 +146,6 @@ export default class InfoGame extends Component {
                     </Table>
                     <br/> <br/> <br/>
                 </div>
-                
             </Fragment>
         );
 

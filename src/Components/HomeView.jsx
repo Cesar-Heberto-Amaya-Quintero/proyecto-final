@@ -132,7 +132,7 @@ export default class HomeView extends Component {
                 <div id="contenido">
                     <div class="fondo">
 
-                        <Image fluid src='https://media.discordapp.net/attachments/775558235809120268/776281592473714708/PLAY.2.DIM.png' />
+                        <Image fluid src='https://media.discordapp.net/attachments/775558235809120268/782102357193261087/BANNER_Sinfont3-01.png?width=1443&height=500' />
 
                         <Divider hidden></Divider>
 
