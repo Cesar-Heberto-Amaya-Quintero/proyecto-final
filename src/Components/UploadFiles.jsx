@@ -2,6 +2,7 @@ import React, { Fragment, Component, createRef, createRef2 } from 'react';
 import { getApolloContext, gql } from '@apollo/client';
 import { Button, Header, Icon, Segment, Menu, Image, Sidebar, Form, Checkbox, Divider, Select, Dropdown, Table, List } from 'semantic-ui-react'
 import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
 
 const ADD_GAME = gql`
     mutation($name: String!, $author: String!, $themeColor: String! ,$description: String!, $imageUrl: String!,$filePath: String! ,$gameGeneroId: ID!)
@@ -169,7 +170,8 @@ export default class TopTrending extends Component {
         progress2: '',
         fieldPathFile: '',
         fieldNameFile: '',
-        fieldImageUrl: ''
+        fieldImageUrl: '',
+        showModal: false
 
     }
 
@@ -232,6 +234,27 @@ export default class TopTrending extends Component {
         console.log(client);
         console.log({ name: fieldName, author: fieldAuthor, themeColor: fieldThemeColor, description: fieldDescription, gameGeneroId: fieldGameGenero, imageUrl: fieldImageUrl, filepath: fieldPathFile });
         window.location.reload();
+    }
+
+    handleClose = () => {
+        this.setState({showModal: false});
+        console.log(this.state.showModal);
+    }
+    
+    handleShow = () => {
+        this.setState({showModal: true});
+        console.log(this.state.showModal);
+    }
+
+    cancel = () => {
+        this.props.history.push('/');
+    }
+
+    handleShowValidate = () => {
+        this.setState({showModalValidate: true});
+    }
+    handleCloseValidate = () => {
+        this.setState({showModalValidate: false});
     }
 
     render() {

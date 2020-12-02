@@ -59,7 +59,7 @@ export default class HomeView extends Component {
 
     sendToTops = () => this.props.history.push({ pathname: '/upload' });
 
-    sendToUpload2 = () => this.props.history.push({ pathname: '/prueba2' });
+    // sendToUpload2 = () => this.props.history.push({ pathname: '/prueba2' });
 
     showGames = () => {
         if (this.state.games == "") {
@@ -128,7 +128,7 @@ export default class HomeView extends Component {
                         <li onClick={this.sendToHome}><a href="#">Home</a></li>
                         <li onClick={this.sendToGames}><a href="#">Juegos </a></li>
                         <li onClick={this.sendToTops}><a href="#">Subir </a></li>
-                        <li onClick={this.sendToUpload2}><a href="#">Subir2 </a></li>
+                        {/* <li onClick={this.sendToUpload2}><a href="#">Subir2 </a></li> */}
 
                     </ul>
                 </div>
@@ -140,8 +140,7 @@ export default class HomeView extends Component {
                             <div class="capa"></div>
                             <div class="info">
                                 <h1>Bienvenidos a Games ULSA</h1>
-                                <p>Sitio web para descargar los mejores .</p>
-                                <a href="#">Leer Más</a>
+                                <p>Conoce y descarga los mejores juegos creados por alumnos de la universidad!</p>
                             </div>
                         </div>
                         <Divider hidden></Divider>
