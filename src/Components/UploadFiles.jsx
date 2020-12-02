@@ -1,23 +1,20 @@
-import React, { Component, Fragment, useRef, useState } from 'react';
+import React, { Fragment, Component, createRef, createRef2 } from 'react';
 import { getApolloContext, gql } from '@apollo/client';
 import { Button, Header, Icon, Segment, Menu, Image, Sidebar, Form, Checkbox, Divider, Select, Dropdown, Table, List } from 'semantic-ui-react'
-
-//import React, { useRef, useState } from 'react';
 import axios from 'axios';
 
-
-
 const ADD_GAME = gql`
-    mutation($name: String!, $author: String!, $themeColor: String! ,$description: String!, $gameGeneroId: ID!)
+    mutation($name: String!, $author: String!, $themeColor: String! ,$description: String!, $imageUrl: String!,$filePath: String! ,$gameGeneroId: ID!)
     {
-        addGame(name:$name, author:$author,themeColor: $themeColor,description:$description, gameGeneroId: $gameGeneroId)
+        addGame(name:$name, author:$author,themeColor: $themeColor,description:$description, imageUrl: $imageUrl ,filePath: $filePath ,gameGeneroId: $gameGeneroId)
     {
         id
         name
         author
-        imageUrl
         themeColor
         description
+        imageUrl
+        filePath
         gameGenero{
             name
         }
@@ -33,6 +30,17 @@ const GET_ALL_GAME_GENEROS = gql`
         }
     }
 `
+
+const ADD_FILE = gql`
+    mutation($name: String!, $path: String!) {
+    addFile(name:$name, path:$path)
+        {
+            id
+            name
+            path
+        }
+    }
+`;
 
 
 const colorOptions = [
@@ -152,9 +160,25 @@ export default class TopTrending extends Component {
         fieldAuthor: '',
         fieldDescription: '',
         fieldThemeColor: '',
-        fieldGameGenero: ''
+        fieldGameGenero: '',
+        file: '',
+        getFile: { file: '', path: '' },
+        progress: '',
+        file2: '',
+        getFile2: { file: '', path: '' },
+        progress2: '',
+        fieldPathFile: '',
+        fieldNameFile: '',
+        fieldImageUrl: ''
 
     }
+
+    constructor() {
+        super();
+        this.el = React.createRef();
+        this.el2 = React.createRef();
+    }
+
 
     static contextType = getApolloContext();
 
@@ -184,10 +208,11 @@ export default class TopTrending extends Component {
                 return { key: item.id, text: item.name, value: item.id };
             })
         })
+        console.log(response);
     }
 
     saveGame = () => {
-        const { fieldName, fieldAuthor, fieldThemeColor, fieldDescription, fieldGameGenero } = this.state;
+        const { fieldName, fieldAuthor, fieldThemeColor, fieldDescription, fieldGameGenero, fieldImageUrl, fieldPathFile } = this.state;
         const { client } = this.context;
 
         client.mutate({
@@ -197,77 +222,94 @@ export default class TopTrending extends Component {
                 author: fieldAuthor,
                 themeColor: fieldThemeColor,
                 description: fieldDescription,
-                gameGeneroId: fieldGameGenero
+                imageUrl: fieldImageUrl,
+                filePath: fieldPathFile,
+                gameGeneroId: fieldGameGenero,
+
             }
         }).then(res => console.log(res))
             .catch(error => console.log(error));
         console.log(client);
-        console.log({ name: fieldName, author: fieldAuthor, themeColor: fieldThemeColor, description: fieldDescription, gameGeneroId: fieldGameGenero });
+        console.log({ name: fieldName, author: fieldAuthor, themeColor: fieldThemeColor, description: fieldDescription, gameGeneroId: fieldGameGenero, imageUrl: fieldImageUrl, filepath: fieldPathFile });
+        window.location.reload();
     }
 
-    // UploadFilee = () => {
-    //     const [file, setFile] = useState('');
-    //     const [data, getFile] = useState({ name: "", path: "" });
-    //     const [progress, setProgess] = useState(0);
-    //     const el = useRef();
-    
-    //     const handleChange = (e) => {
-    //         setProgess(0)
-    //         const file = e.target.files[0]
-    //         console.log(file);
-    //         setFile(file)
-    //     }
-    //     const uploadFile = () => {
-    //         const formData = new FormData();
-    //         formData.append('file', file)
-    //         axios.post('http://localhost:4500/upload', formData, {
-    //             onUploadProgress: (ProgressEvent) => {
-    //                 let progress = Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
-    //                 setProgess(progress)
-    //             }
-    //         }).then(res => {
-    //             console.log(res);
-    //             getFile({ name: res.data.name, path: 'http://localhost:4500' + res.data.path })
-    //             // el.current.value = "";
-    //         }).catch(err => console.log(err))
-    //     }
-    // }
-    
-
-   
-    
     render() {
         const { value } = this.state
 
-//         UploadFilee = () =>{
-//         const [file, setFile] = useState('');
-//     const [data, getFile] = useState({ name: "", path: "" });
-//     const [progress, setProgess] = useState(0);
-//     const el = useRef();
+        const { file, progress, file2, progress2 } = this.state;
+        const setFile = file => this.setState({ file });
+        const setProgess = progress => this.setState({ progress });
 
-//     const handleChange = (e) => {
-//         setProgess(0)
-//         const file = e.target.files[0]
-//         console.log(file);
-//         setFile(file)
-//     }
+        const setFile2 = file2 => this.setState({ file2 });
+        const setProgess2 = progress2 => this.setState({ progress2 });
 
-//     const uploadFile = () => {
-//         const formData = new FormData();
-//         formData.append('file', file)
-//         axios.post('http://localhost:4500/upload', formData, {
-//             onUploadProgress: (ProgressEvent) => {
-//                 let progress = Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
-//                 setProgess(progress)
-//             }
-//         }).then(res => {
-//             console.log(res);
-//             getFile({ name: res.data.name, path: 'http://localhost:4500' + res.data.path })
-//             // el.current.value = "";
-//         }).catch(err => console.log(err))
-//     }
-// }
-    
+
+        const saveFile = () => {
+            const { fieldNameFile, fieldPathFile } = this.state;
+            const { client } = this.context;
+            client.mutate({
+                mutation: ADD_FILE,
+                variables: {
+                    name: fieldNameFile,
+                    path: fieldPathFile
+                }
+            }).then(res => console.log(res))
+                .catch(error => console.log(error));
+            console.log(client);
+            console.log(this.state.fieldNameFile);
+            console.log(this.state.fieldPathFile);
+        }
+
+        const handleChange = (e) => {
+            setProgess(0)
+            const file = e.target.files[0]
+            console.log(file);
+            setFile(file)
+        }
+
+        const handleChange2 = (e) => {
+            setProgess2(0)
+            const file2 = e.target.files[0]
+            console.log(file2);
+            setFile2(file2)
+        }
+
+        const uploadFile = () => {
+            const formData = new FormData();
+            formData.append('file', file)
+            axios.post('http://localhost:5000/upload', formData, {
+                onUploadProgress: (ProgressEvent) => {
+                    let progress = Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
+                    setProgess(progress)
+                }
+            }).then(res => {
+                console.log(res);
+                this.setState({ getFile: { name: res.data.file, path: 'http://localhost:5000' + res.data.path } })
+                this.setState({ fieldNameFile: res.data.file });
+                this.setState({ fieldPathFile: res.data.path });
+                //getFile({ name: res.data.name, path: 'http://localhost:5000' + res.data.path })
+                // el.current.value = "";
+            }).catch(err => console.log(err))
+        }
+
+        const uploadFile2 = () => {
+            const formData2 = new FormData();
+            formData2.append('file', file2)
+            axios.post('http://localhost:5000/upload', formData2, {
+                onUploadProgress: (ProgressEvent) => {
+                    let progress2 = Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
+                    setProgess2(progress2)
+                }
+            }).then(res => {
+                console.log(res);
+                this.setState({ getFile2: { name: res.data.file, path: 'http://localhost:5000' + res.data.path } })
+                this.setState({ fieldImageUrl: res.data.path });
+                //getFile({ name: res.data.name, path: 'http://localhost:5000' + res.data.path })
+                // el.current.value = "";
+            }).catch(err => console.log(err))
+        }
+
         return (
 
             <div class="body">
@@ -279,11 +321,11 @@ export default class TopTrending extends Component {
                             <div class="image">
                                 <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
                             </div>
-            
-                               <li onClick={this.sendToHome}><a href="#">Home</a></li>
-                                <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
-                                <li onClick={this.sendToTops}><a href="#">Subir</a></li>
-                
+
+                            <li onClick={this.sendToHome}><a href="#">Home</a></li>
+                            <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
+                            <li onClick={this.sendToTops}><a href="#">Subir</a></li>
+
                         </ul>
                     </div>
                     <div id="contenido">
@@ -293,78 +335,63 @@ export default class TopTrending extends Component {
                                 <div>
                                     <Header inverted as='h1' textAlign='center'>Sube un juego</Header>
                                 </div>
-                                <div class="fondo">
-                                    <Form inverted style={{ backgroundColor: '#1a1a2e' }} float="left">
-                                        <Form.Group widths='equal'>
-                                            <Form.Input textAlign="left" fluid label='Nombre' placeholder='Nombre' onChange={this.handleName} />
-                                            <Form.Input fluid label='Autor' placeholder='Autor' onChange={this.handleAuthor} />
-                                            <Form.Select
-                                                fluid
-                                                label='Género'
-                                                options={this.state.gameGeneroList}
-                                                placeholder='Genero'
-                                                onChange={this.handleGenero}
-                                            />
-                                        </Form.Group>
 
-                                        <Form.TextArea width='9' label='Descripción' placeholder='Cuentanos sobre tu juego...' onChange={this.handleDescription} />
-                                        <Form.Group>
-                                            <Form.Field textAlign="left" fluid label='Color' />
+                                <Form inverted style={{ backgroundColor: '#1a1a2e' }} float="left">
+                                    <Form.Group widths='equal'>
+                                        <Form.Input textAlign="left" fluid label='Nombre' placeholder='Nombre' onChange={this.handleName} />
+                                        <Form.Input fluid label='Autor' placeholder='Autor' onChange={this.handleAuthor} />
+                                        <Form.Select
+                                            fluid
+                                            label='Género'
+                                            options={this.state.gameGeneroList}
+                                            placeholder='Genero'
+                                            onChange={this.handleGenero}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group>
+                                        <Form.TextArea rows={1} width='12' label='Descripción' placeholder='Cuentanos sobre tu juego...' onChange={this.handleDescription} />
 
+                                        <Form.Field width='6'>
+                                            <label>Color</label>
                                             <Dropdown floating
-                                                placeholder='Selecciona un color'
-                                                selection
-                                                options={colorOptions}
-                                                onChange={this.handleThemeColor}
-                                            />
-                                        </Form.Group>
-                                    </Form>
-                                </div>
+                                            placeholder='Selecciona un color'
+                                            selection
+                                            options={colorOptions}
+                                            onChange={this.handleThemeColor}
+                                        />
+                                        </Form.Field>
+ 
+                                    </Form.Group>
+                                    <Form.Field textAlign="left" fluid label='Archivo comprimido' />
+
+                                    <div className="file-upload">
+                                        <input type="file" ref={this.el} onChange={handleChange} />
+                                        <br />
+                                        <div className="progessBar" style={{ width: progress }}>{progress}</div>
+                                        <br />
+                                        <Form.Button size="medium" inverted onClick={uploadFile}>Subir</Form.Button>
+                                    </div>
+                                    <hr />
+
+
+                                    <br /><br /><br />
+                                    <Form.Field textAlign="left" fluid label='Imagen del juego' />
+
+                                    <div className="file-upload">
+                                        <input type="file" ref={this.el2} onChange={handleChange2} />
+                                        <br />
+                                        <div className="progessBar" style={{ width: progress2 }}>{progress2}</div>
+                                        <br />
+                                        <Form.Button size="medium" inverted onClick={uploadFile2}>Subir</Form.Button>
+                                    </div>
+                                    <hr />
+
+                                    <center>
+                                        <Form.Button inverted onClick={() => this.saveGame()}>Publicar</Form.Button>
+                                    </center>
+
+                                </Form>
                             </Segment>
-
-                            {/*<Segment inverted placeholder style={{ backgroundColor: '#1a1a2e' }}>
-
-                                <Header icon>
-                                    <Icon name='pdf file outline' />
-                                            No documents are listed for this customer.
-                                            </Header>
-                                <Button inverted onClick={this.findSelectGenero}>Add Document</Button>
-
-                            </Segment> 
-                            <Form.Button inverted onClick={() => this.saveGame()}>Publicar</Form.Button>
-                            */}
-                              {/* <div>
-            <div className="file-upload">
-                <input type="file" ref={el} onChange={handleChange} />
-                <div className="progessBar" style={{ width: progress }}>{progress}</div>
-                <button onClick={uploadFile} className="upbutton">upload</button>
-            </div>
-            <hr />
-            {data.path && <div><textarea value={data.path} onChange={uploadFile} /></div>}
-            {data.path && <img src={data.path} alt={data.name} />}
-
-        </div>  */}
-                            
-
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
-                            <Divider hidden />
 
                         </div>
                     </div>

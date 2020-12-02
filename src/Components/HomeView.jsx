@@ -75,6 +75,7 @@ export default class HomeView extends Component {
         }
         else {
             console.log("Si hay objetos");
+
             return this.state.games.map(game => {
                 console.log(game);
 
@@ -84,19 +85,18 @@ export default class HomeView extends Component {
 
 
                     <List.Item >
-                        <div class="ui cards" >
+                        <div class="cartaJuego" >
                             <Card fluid onClick={() => this.sendToInfoGame(game.id)}>
-                                <Image label={{ color: 'red', corner: 'bottom', icon: 'heart' }} size='medium'
-                                    src={game.imageUrl} />
-                                <div class="content">
-                                    <a class="header">{game.name}</a>
+                                <Image size='medium'
+                                    src={`http://localhost:5000${game.imageUrl}`} />
+                                <div class="textoCarta">
+                                    <h1>{game.name}</h1>
                                     <div class="meta">
-                                        <span class='date'>{game.author}</span>
+                                        <h3 class='textoCarta'>{game.author}</h3>
                                     </div>
+                                    <br></br>
+                                    <br></br>
 
-                                </div>
-                                <div class="extra content">
-                                    <Rating defaultRating={3} maxRating={4} />
                                 </div>
                             </Card>
                         </div>
@@ -122,21 +122,28 @@ export default class HomeView extends Component {
                 <div id="sidebar" class="sidebar">
                     <ul class="menu">
                         <div class="image">
-                            <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
+                            <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png'/>
                         </div>
-                    
-                            <li onClick={this.sendToHome}><a href="#">Home</a></li>
-                            <li onClick={this.sendToGames}><a href="#">Juegos </a></li>
-                            <li onClick={this.sendToTops}><a href="#">Subir </a></li>
-                            <li onClick={this.sendToUpload2}><a href="#">Subir2 </a></li>
-                  
+
+                        <li onClick={this.sendToHome}><a href="#">Home</a></li>
+                        <li onClick={this.sendToGames}><a href="#">Juegos </a></li>
+                        <li onClick={this.sendToTops}><a href="#">Subir </a></li>
+                        <li onClick={this.sendToUpload2}><a href="#">Subir2 </a></li>
+
                     </ul>
                 </div>
                 <div id="contenido">
                     <div class="fondo">
 
-                        <Image fluid src='https://media.discordapp.net/attachments/775558235809120268/782102357193261087/BANNER_Sinfont3-01.png?width=1443&height=500' />
-
+                        {/* <Image fluid src='https://media.discordapp.net/attachments/775558235809120268/782102357193261087/BANNER_Sinfont3-01.png?width=1443&height=500' /> */}
+                        <div class="banner">
+                            <div class="capa"></div>
+                            <div class="info">
+                                <h1>Bienvenidos a Games ULSA</h1>
+                                <p>Sitio web para descargar los mejores .</p>
+                                <a href="#">Leer Más</a>
+                            </div>
+                        </div>
                         <Divider hidden></Divider>
 
                         <Grid columns={2} relaxed='very'>
@@ -179,7 +186,6 @@ export default class HomeView extends Component {
                         <div id="contenido">
 
                             <Divider horizontal>
-                                <a href='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' download>Click to download</a>
                                 <Header inverted as='h1'>
                                     <Icon name='game' />
                                     Selecciona que tipos de juegos quieres ver
@@ -194,7 +200,7 @@ export default class HomeView extends Component {
                                 onChange={this.handleGenero}
                             />
 
-
+                            <Divider hidden />
 
                             <List horizontal celled >
                                 {this.showGames()}

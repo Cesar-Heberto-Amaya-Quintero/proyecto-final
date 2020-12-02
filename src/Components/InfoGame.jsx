@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { getApolloContext, gql } from '@apollo/client';
 
-import { Menu, Image, Rating, Card, Header, Divider, Container, Grid, Segment, Table, Icon } from 'semantic-ui-react';
+import { Menu, Image, Rating, Card, Header, Divider, Container, Grid, Segment, Table, Icon, Button } from 'semantic-ui-react';
 
 const GET_GAME_BY_ID = gql`
     query($id: ID!){
@@ -12,6 +12,7 @@ const GET_GAME_BY_ID = gql`
                 imageUrl
                 themeColor 
                 description
+                filePath
                 gameGenero{
                     name
                 }
@@ -27,6 +28,7 @@ export default class InfoGame extends Component {
         imageUrl: '',
         themeColor: '',
         description: '',
+        filePath:'',
         gameGenero: ''
     }
 
@@ -38,6 +40,8 @@ export default class InfoGame extends Component {
 
     sendToTops = () => this.props.history.push({ pathname: '/upload' });
 
+    downloadGame = () => this.props.history.push({ pathname: `http://localhost:5000${this.state.filePath}` });
+
     componentDidMount = async () => {
         console.log(this.props.history.location.state.gameId);
         const { client } = this.context;
@@ -47,16 +51,16 @@ export default class InfoGame extends Component {
                 id: this.props.history.location.state.gameId
             }
         });
-        const { id, name, author, imageUrl, description, themeColor, gameGenero } = response.data.game;
-        this.setState({ id: id, name: name, author: author, imageUrl: imageUrl, themeColor: themeColor, description: description, gameGenero: gameGenero });
+        const { id, name, author, imageUrl, description, themeColor, gameGenero, filePath } = response.data.game;
+        this.setState({ id: id, name: name, author: author, imageUrl: imageUrl, themeColor: themeColor, description: description, filePath: filePath,gameGenero: gameGenero });
         console.log(response.data.game);
     }
 
     render() {
-
+        console.log(this.state.filePath)
         return (
             <Fragment>
-
+                   
                 {/* CÓDIGO PARA LA PARTE DE MENU E IMAGEN*/}
                 <input id="abrir-cerrar" name="abrir-cerrar" type="checkbox" value="" />
                 <label for="abrir-cerrar">&#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
@@ -78,12 +82,13 @@ export default class InfoGame extends Component {
                         <Table.Body>
                             <Table.Row>
                                 <Table.HeaderCell>
+                                
 
                                     <Segment inverted color={this.state.themeColor}>
-
+                                    <Button color={this.state.themeColor} onClick={this.sendToGames} >Volver</Button>
                                         <Divider hidden></Divider>
 
-                                        <Image centered circular size='large' src={this.state.imageUrl} />
+                                        <Image centered circular size='large' src={`http://localhost:5000${this.state.imageUrl}`} />
 
                                         {/*  <Header as='h3' textAlign='center'> {this.state.description} </Header>  */}
                                     </Segment>
@@ -144,6 +149,12 @@ export default class InfoGame extends Component {
 
                         </Table.Body>
                     </Table>
+
+                    {/* <a href={`http://localhost:5000${this.state.filePath}`}>Descargar</a> */}
+                    
+                    
+                    <Button color={this.state.themeColor} onClick={()=>window.location.href=`http://localhost:5000${this.state.filePath}`} >Descargar</Button>
+
                     <br/> <br/> <br/>
                 </div>
             </Fragment>

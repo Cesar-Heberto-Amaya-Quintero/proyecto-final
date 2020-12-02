@@ -45,9 +45,9 @@ export default class pruebaFiles2 extends Component {
    sendToTops = () => this.props.history.push({ pathname: '/upload' });
    
     render(){
-    const { file, data, progress } = this.state;
+    const { file, progress } = this.state;
     const setFile = file => this.setState({file});
-    const setProgess = progress => this.setState({});
+    const setProgess = progress => this.setState({progress});
 
     this.componentDidMount = async =>{
 
@@ -119,9 +119,10 @@ export default class pruebaFiles2 extends Component {
             </div>
             <hr />
             {this.state.getFile.path && <div><textarea value={this.state.getFile.path} onChange={uploadFile} /></div>}
-            {this.state.getFile.path && <img src={this.state.getFile.path} alt={this.state.getFile.file} />}
+            {this.state.getFile.path && <div className="imgFile"><img src={this.state.getFile.path} alt={this.state.getFile.file} /></div>}
 
         </div>
+        
   
         <Button onClick={saveFile}>PRUEBA OJALA FUNCIONE ESTA CAGADA</Button>
         </div>

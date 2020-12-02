@@ -14,6 +14,7 @@ const GET_ALL_GAMES = gql`
             author
             imageUrl
             themeColor
+            imageUrl
             description
             gameGenero {
                 name
@@ -69,8 +70,8 @@ export default class Games extends Component {
                 <List.Item >
                     <div class="cartaJuego" >
                         <Card fluid onClick={() => this.sendToInfoGame(game.id)}>
-                            <Image label={{ color: 'red', corner: 'bottom', icon: 'heart' }} size='medium'
-                                src={game.imageUrl} />
+                            <Image size='medium'
+                                src={`http://localhost:5000${game.imageUrl}`} />
                             <div class="textoCarta">
                                 <h1 >{game.name}</h1>
                                 <Header inverted as="h2" textAlign="center">{game.author}</Header>
@@ -80,7 +81,7 @@ export default class Games extends Component {
                                 </div>
                             </div>
                             <div class="extra content">
-                                <Rating defaultRating={3} maxRating={4} />
+                                
                             </div>
                         </Card>
                     </div>
