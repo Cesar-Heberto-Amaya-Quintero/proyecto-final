@@ -59,6 +59,8 @@ export default class HomeView extends Component {
 
     sendToTops = () => this.props.history.push({ pathname: '/upload' });
 
+    sendToUpload2 = () => this.props.history.push({ pathname: '/prueba2' });
+
     showGames = () => {
         if (this.state.games == "") {
             console.log("No hay nada");
@@ -122,11 +124,12 @@ export default class HomeView extends Component {
                         <div class="image">
                             <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
                         </div>
-                        <div class="icon">
-                            <li onClick={this.sendToHome} name='Home' icon='home'><a href="#">Home</a></li>
-                            <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
-                            <li onClick={this.sendToTops}><a href="#">Subir</a></li>
-                        </div>
+                    
+                            <li onClick={this.sendToHome}><a href="#">Home</a></li>
+                            <li onClick={this.sendToGames}><a href="#">Juegos </a></li>
+                            <li onClick={this.sendToTops}><a href="#">Subir </a></li>
+                            <li onClick={this.sendToUpload2}><a href="#">Subir2 </a></li>
+                  
                     </ul>
                 </div>
                 <div id="contenido">
@@ -176,6 +179,7 @@ export default class HomeView extends Component {
                         <div id="contenido">
 
                             <Divider horizontal>
+                                <a href='https://img.unocero.com/2020/07/Super-Mario-Bros-verdadera-nacionalidad.jpg' download>Click to download</a>
                                 <Header inverted as='h1'>
                                     <Icon name='game' />
                                     Selecciona que tipos de juegos quieres ver

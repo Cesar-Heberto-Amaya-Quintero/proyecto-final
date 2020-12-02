@@ -65,11 +65,11 @@ export default class InfoGame extends Component {
                         <div class="image">
                             <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
                         </div>
-                        <div class="icon">
+ 
                             <li onClick={this.sendToHome} name='Home' icon='home'><a href="#">Home</a></li>
                             <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
                             <li onClick={this.sendToTops}><a href="#">Subir</a></li>
-                        </div>
+         
                     </ul>
                 </div>
                 <div id="contenido">

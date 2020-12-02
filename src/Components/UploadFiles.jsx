@@ -1,6 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, useRef, useState } from 'react';
 import { getApolloContext, gql } from '@apollo/client';
 import { Button, Header, Icon, Segment, Menu, Image, Sidebar, Form, Checkbox, Divider, Select, Dropdown, Table, List } from 'semantic-ui-react'
+
+//import React, { useRef, useState } from 'react';
+import axios from 'axios';
+
+
 
 const ADD_GAME = gql`
     mutation($name: String!, $author: String!, $themeColor: String! ,$description: String!, $gameGeneroId: ID!)
@@ -111,6 +116,34 @@ const colorOptions = [
     }
 ]
 
+// const [file, setFile] = useState('');
+//     const [data, getFile] = useState({ name: "", path: "" });
+//     const [progress, setProgess] = useState(0);
+//     const el = useRef();
+
+//     const handleChange = (e) => {
+//         setProgess(0)
+//         const file = e.target.files[0]
+//         console.log(file);
+//         setFile(file)
+//     }
+
+//     const uploadFile = () => {
+//         const formData = new FormData();
+//         formData.append('file', file)
+//         axios.post('http://localhost:4500/upload', formData, {
+//             onUploadProgress: (ProgressEvent) => {
+//                 let progress = Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
+//                 setProgess(progress)
+//             }
+//         }).then(res => {
+//             console.log(res);
+//             getFile({ name: res.data.name, path: 'http://localhost:4500' + res.data.path })
+//             // el.current.value = "";
+//         }).catch(err => console.log(err))
+//     }
+
+
 export default class TopTrending extends Component {
 
     state = {
@@ -119,7 +152,8 @@ export default class TopTrending extends Component {
         fieldAuthor: '',
         fieldDescription: '',
         fieldThemeColor: '',
-        fieldGameGenero: '',
+        fieldGameGenero: ''
+
     }
 
     static contextType = getApolloContext();
@@ -137,6 +171,10 @@ export default class TopTrending extends Component {
     handleDescription = e => this.setState({ fieldDescription: e.target.value });
     handleGenero = (e, { value }) => this.setState({ fieldGameGenero: value });
     handleThemeColor = (e, { value }) => this.setState({ fieldThemeColor: value });
+
+    //handleFile = e => this.setState({file: e.target.files[0]});
+    //setFile(file);
+
 
     componentDidMount = async () => {
         const { client } = this.context;
@@ -167,10 +205,69 @@ export default class TopTrending extends Component {
         console.log({ name: fieldName, author: fieldAuthor, themeColor: fieldThemeColor, description: fieldDescription, gameGeneroId: fieldGameGenero });
     }
 
-    render() {
+    // UploadFilee = () => {
+    //     const [file, setFile] = useState('');
+    //     const [data, getFile] = useState({ name: "", path: "" });
+    //     const [progress, setProgess] = useState(0);
+    //     const el = useRef();
+    
+    //     const handleChange = (e) => {
+    //         setProgess(0)
+    //         const file = e.target.files[0]
+    //         console.log(file);
+    //         setFile(file)
+    //     }
+    //     const uploadFile = () => {
+    //         const formData = new FormData();
+    //         formData.append('file', file)
+    //         axios.post('http://localhost:4500/upload', formData, {
+    //             onUploadProgress: (ProgressEvent) => {
+    //                 let progress = Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
+    //                 setProgess(progress)
+    //             }
+    //         }).then(res => {
+    //             console.log(res);
+    //             getFile({ name: res.data.name, path: 'http://localhost:4500' + res.data.path })
+    //             // el.current.value = "";
+    //         }).catch(err => console.log(err))
+    //     }
+    // }
+    
 
+   
+    
+    render() {
         const { value } = this.state
 
+//         UploadFilee = () =>{
+//         const [file, setFile] = useState('');
+//     const [data, getFile] = useState({ name: "", path: "" });
+//     const [progress, setProgess] = useState(0);
+//     const el = useRef();
+
+//     const handleChange = (e) => {
+//         setProgess(0)
+//         const file = e.target.files[0]
+//         console.log(file);
+//         setFile(file)
+//     }
+
+//     const uploadFile = () => {
+//         const formData = new FormData();
+//         formData.append('file', file)
+//         axios.post('http://localhost:4500/upload', formData, {
+//             onUploadProgress: (ProgressEvent) => {
+//                 let progress = Math.round(ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
+//                 setProgess(progress)
+//             }
+//         }).then(res => {
+//             console.log(res);
+//             getFile({ name: res.data.name, path: 'http://localhost:4500' + res.data.path })
+//             // el.current.value = "";
+//         }).catch(err => console.log(err))
+//     }
+// }
+    
         return (
 
             <div class="body">
@@ -182,11 +279,11 @@ export default class TopTrending extends Component {
                             <div class="image">
                                 <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
                             </div>
-                            <div class="icon">
-                                <Icon name='home'/><li onClick={this.sendToHome}><a href="#">Home</a></li>
+            
+                               <li onClick={this.sendToHome}><a href="#">Home</a></li>
                                 <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
-                                <li onClick={this.sendToTops}><a href="#">Top trending ❥</a></li>
-                            </div>
+                                <li onClick={this.sendToTops}><a href="#">Subir</a></li>
+                
                         </ul>
                     </div>
                     <div id="contenido">
@@ -236,48 +333,18 @@ export default class TopTrending extends Component {
                             </Segment> 
                             <Form.Button inverted onClick={() => this.saveGame()}>Publicar</Form.Button>
                             */}
-                            <div>
-                                <meta charSet="UTF-8" />
-                                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                                <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-                                <title>Upload and Download Files</title>
-                                <center>
-                                    <h1>Sube tus archivos aquí!</h1>
-                                    <br /><br />
-                                    <form action="/" method="POST" encType="multipart/form-data">
-                                        <input type="file" name="pic" id="pic" /><br />
-                                        <br /><br />
-                                        <input type="submit" defaultValue="subir archivo" />
-                                    </form><br/><br/><br/><br/>
-          &lt;% if(data.length &gt; 0) {'{'}%&gt;
-          &lt;% for(var i=0; i&lt; data.length; i++) {'{'}%&gt;
-          &lt;% {'}'} %&gt;
-          <table>
-                                        <thead>
-                                            <tr>
-                                                <td>
-                                                    images
-                </td>
-                                                <td>
-                                                    download
-                </td>
-                                            </tr>
-                                        </thead>
-                                        <tbody><tr>
-                                            <td>
-                                                <img src="<%= data[i].picpath%>" alt="images" style={{ width: '100px', height: '100px' }} />
-                                                {/* <%= data[i].picpath%> */}
-                                            </td>
-                                            <td>
-                                                <form action="/download/<%= data[i]._id%>">
-                                                    <input type="submit" defaultValue="descargar" />
-                                                </form>
-                                            </td>
-                                        </tr></tbody>
-                                    </table>
-          &lt;% {'}'} %&gt;
-        </center>
-                            </div>
+                              {/* <div>
+            <div className="file-upload">
+                <input type="file" ref={el} onChange={handleChange} />
+                <div className="progessBar" style={{ width: progress }}>{progress}</div>
+                <button onClick={uploadFile} className="upbutton">upload</button>
+            </div>
+            <hr />
+            {data.path && <div><textarea value={data.path} onChange={uploadFile} /></div>}
+            {data.path && <img src={data.path} alt={data.name} />}
+
+        </div>  */}
+                            
 
                             <Divider hidden />
                             <Divider hidden />
