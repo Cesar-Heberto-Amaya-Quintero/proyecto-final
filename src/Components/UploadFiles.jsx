@@ -1,8 +1,7 @@
 import React, { Fragment, Component, createRef, createRef2 } from 'react';
 import { getApolloContext, gql } from '@apollo/client';
-import { Button, Header, Icon, Segment, Menu, Image, Sidebar, Form, Checkbox, Divider, Select, Dropdown, Table, List } from 'semantic-ui-react'
+import { Header, Segment, Image, Form,  Divider, Dropdown, List, Modal, Container, Grid } from 'semantic-ui-react'
 import axios from 'axios';
-import Modal from 'react-bootstrap/Modal';
 
 const ADD_GAME = gql`
     mutation($name: String!, $author: String!, $themeColor: String! ,$description: String!, $imageUrl: String!,$filePath: String! ,$gameGeneroId: ID!)
@@ -171,7 +170,6 @@ export default class TopTrending extends Component {
         fieldPathFile: '',
         fieldNameFile: '',
         fieldImageUrl: '',
-        showModal: false
 
     }
 
@@ -197,6 +195,7 @@ export default class TopTrending extends Component {
     handleDescription = e => this.setState({ fieldDescription: e.target.value });
     handleGenero = (e, { value }) => this.setState({ fieldGameGenero: value });
     handleThemeColor = (e, { value }) => this.setState({ fieldThemeColor: value });
+
 
     //handleFile = e => this.setState({file: e.target.files[0]});
     //setFile(file);
@@ -233,28 +232,7 @@ export default class TopTrending extends Component {
             .catch(error => console.log(error));
         console.log(client);
         console.log({ name: fieldName, author: fieldAuthor, themeColor: fieldThemeColor, description: fieldDescription, gameGeneroId: fieldGameGenero, imageUrl: fieldImageUrl, filepath: fieldPathFile });
-        window.location.reload();
-    }
-
-    handleClose = () => {
-        this.setState({showModal: false});
-        console.log(this.state.showModal);
-    }
-    
-    handleShow = () => {
-        this.setState({showModal: true});
-        console.log(this.state.showModal);
-    }
-
-    cancel = () => {
-        this.props.history.push('/');
-    }
-
-    handleShowValidate = () => {
-        this.setState({showModalValidate: true});
-    }
-    handleCloseValidate = () => {
-        this.setState({showModalValidate: false});
+        
     }
 
     render() {
@@ -335,7 +313,7 @@ export default class TopTrending extends Component {
 
         return (
 
-            <div class="body">
+     
                 <Fragment>
                     <input id="abrir-cerrar" name="abrir-cerrar" type="checkbox" value="" />
                     <label for="abrir-cerrar">&#9776; <span class="abrir">Menú</span><span class="cerrar">Menú</span></label>
@@ -345,14 +323,14 @@ export default class TopTrending extends Component {
                                 <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
                             </div>
 
-                            <li onClick={this.sendToHome}><a href="#">Home</a></li>
+                            <li onClick={this.sendToHome}><a href="#">Inicio</a></li>
                             <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
                             <li onClick={this.sendToTops}><a href="#">Subir</a></li>
 
                         </ul>
                     </div>
                     <div id="contenido">
-                        <div class="fondo">
+                        <div class="fondoSubir">
 
                             <Segment style={{ backgroundColor: '#1a1a2e' }}>
                                 <div>
@@ -394,11 +372,11 @@ export default class TopTrending extends Component {
                                         <br />
                                         <Form.Button size="medium" inverted onClick={uploadFile}>Subir</Form.Button>
                                     </div>
-                                    <hr />
+                                    
 
 
-                                    <br /><br /><br />
-                                    <Form.Field textAlign="left" fluid label='Imagen del juego' />
+                                    <br />
+                                    <Form.Field textAlign="left" fluid label='Imagen del juego (800 x 800)' />
 
                                     <div className="file-upload">
                                         <input type="file" ref={this.el2} onChange={handleChange2} />
@@ -407,21 +385,85 @@ export default class TopTrending extends Component {
                                         <br />
                                         <Form.Button size="medium" inverted onClick={uploadFile2}>Subir</Form.Button>
                                     </div>
+                                    <br/>
                                     <hr />
 
                                     <center>
-                                        <Form.Button inverted onClick={() => this.saveGame()}>Publicar</Form.Button>
+                                        {/* <Form.Button inverted onClick={() => this.saveGame()}>Publicar</Form.Button> */}
+                                        <Divider hidden />
+                                        <Modal
+                                        trigger={<Form.Button inverted onClick={() => this.saveGame()}>Publicar</Form.Button>}
+                                        header='Listo!'
+                                        content='Tu juego ha sido publicado'
+                                        actions={[{ key: 'done', content: 'Hecho', positive: true }]}
+                                        onActionClick={()=>window.location.reload()}
+                                        />
                                     </center>
-
+                                    
                                 </Form>
                             </Segment>
-
+                            
                         </div>
-                    </div>
+                        <Segment inverted vertical style={{ padding: '5em 0em' }}>
+                    <div class='center'>
+                    <Container>
+                        <Grid divided inverted stackable>
+                            <Grid.Row>
+                                <Grid.Column width={3}>
+                                    <Header inverted as='h4' content='Universidad La Salle Noroeste' />
+                                    <List link inverted>
+                                        <List.Item href="http://www.ulsa-noroeste.edu.mx/">Sitio web</List.Item>
+                                        <List.Item href="https://avirtual.lasallenoroeste.edu.mx/login/index.php">Moddle</List.Item>
+                                    </List>
+                                </Grid.Column>
+                                <Grid.Column width={3}>
+                                    <Header inverted as='h4' content='Redes sociales' />
+                                    <div class="ui middle aligned selection list">
+                                        <div class="item">
+                                            <img class="ui avatar image" src="https://cdn.discordapp.com/attachments/775558235809120268/783843259217739776/facebook.icon_Mesa_de_trabajo_1.png" />
+                                            <div class="content">
+                                                <a class="header" href="https://www.facebook.com/UniversidadLaSalleNoroeste">Facebook</a>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <img class="ui avatar image" src="https://media.discordapp.net/attachments/775558235809120268/783843900526952458/insta.ic_Mesa_de_trabajo_1.png" />
+                                            <div class="content">
+                                                <div class="ref">
+                                                    <a class="header" href="https://www.instagram.com/lasallenoroeste">Instagram</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <img class="ui avatar image" src="https://media.discordapp.net/attachments/775558235809120268/783844310113714207/twitter_Mesa_de_trabajo_1.png" />
+                                            <div class="content">
+                                                <a class="header" href="https://mobile.twitter.com/lasallenoroeste" >Twitter</a>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                </Grid.Column>
+                                <Grid.Column width={3}>
+                                    <Header as='h4' inverted>
+                                        Derechos reservados ©
+                                    </Header>
+                                    <p>
+                                        Danna Aguilar <br />
+                                        César Amaya <br />
+                                        Marisela Delgadillo <br />
+                                        Azalia Peña <br />
+                                    </p>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </Container>
+                    </div>
+                </Segment>
+
+                       
+
+                </div>
                 </Fragment>
 
-            </div>
         );
     }
 }

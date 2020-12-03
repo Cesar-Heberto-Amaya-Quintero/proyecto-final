@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { Divider, Button, Header, Segment, Menu, Image, Rating, Embed, Card, List, Table, Reveal, Form, Grid, Transition, Icon, Dropdown } from 'semantic-ui-react';
+import { Divider, Button, Header, Segment, Image, Embed, Card, List, Form, Grid, Icon, Container } from 'semantic-ui-react';
 
 import { getApolloContext, gql } from '@apollo/client';
 
@@ -122,10 +122,9 @@ export default class HomeView extends Component {
                 <div id="sidebar" class="sidebar">
                     <ul class="menu">
                         <div class="image">
-                            <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png'/>
+                            <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
                         </div>
-
-                        <li onClick={this.sendToHome}><a href="#">Home</a></li>
+                        <li onClick={this.sendToHome}><a href="#">Inicio</a></li>
                         <li onClick={this.sendToGames}><a href="#">Juegos </a></li>
                         <li onClick={this.sendToTops}><a href="#">Subir </a></li>
                         {/* <li onClick={this.sendToUpload2}><a href="#">Subir2 </a></li> */}
@@ -144,78 +143,161 @@ export default class HomeView extends Component {
                             </div>
                         </div>
                         <Divider hidden></Divider>
+                        <div class="info2">
+                            Juego del momento
+                        </div>
+                        <br /><br />
 
                         <Grid columns={2} relaxed='very'>
                             <Grid.Column>
                                 <div class="imagenMargenes">
                                     <div class="imagen">
                                         <Embed
-                                            id='UAO2urG23S4'
-                                            placeholder='https://as01.epimg.net/meristation/imagenes/2018/09/11/header_image/723533421536694195.png'
+                                            id='qfRm8-l95Ws'
+                                            placeholder='https://media.discordapp.net/attachments/775558235809120268/783527208068972574/Menu.png?width=1194&height=671'
                                             source='youtube'
                                         />
                                     </div>
                                 </div>
                             </Grid.Column>
                             <Grid.Column verticalAlign='middle'>
-                                <div class="textoMargenes">
-                                    <div class="texto">
-                                        <span>
-                                            El modo de juego de Hollow Knight se enfoca principalmente en exploración, plataformas y combate.
-                                            Los jugadores exploran un gran mundo interconectado usando una variedad de movimientos y técnicas de combate.
-                                            Al clásico estilo metroidvania, existen áreas del mundo a las que los jugadores no pueden acceder hasta que hayan obtenido algún objeto o habilidad particular.
-                                            Los mapas de cada zona deben comprarse a un cartógrafo que generalmente se encuentra escondido en esa área, y el jugador también puede comprar mejoras que permiten colocar marcadores en el mapa,
-                                            o revelar partes del mismo a medida que van explorando. El guardado del juego sólo puede hacerse en los bancos para descansar que se encuentran esparcidos por todo el reino.
-                                            Al sentarse en un banco, el mapa se actualizará con las zonas recientemente descubiertas por el Caballero, a su vez que regenera su salud en caso que la haya perdido.
+                                <center>
+                                    <div class="textoMargenes">
+                                        <div class="texto">
+                                            <center>
+                                                <Image src="https://cdn.discordapp.com/attachments/775558235809120268/783824486658605056/WildDoggie.png" />
+                                                <br /> <br />
+                                                <span>
+                                                    Wild Doggie es un juego creado por alumnos de la Universidad La Salle Noroeste correspondiente al proyecto final de la materia Estructura de Datos. Diviértete recolectando los diversos premios esparcidos por todo el mapa.
                                         </span>
-                                    </div>
+                                                <br /> <br />
+                                                <span>
+                                                    ¡DESCÁRGALO AHORA!
+                                        </span>
+                                                <br /><br />
+                                                <Button size="large" inverted onClick={() => window.location.href = `http://localhost:5000/Wild-doggie.zip`} >Descargar</Button>
+                                                <Divider hidden />
+                                            </center>
 
-                                </div>
-                                <Divider hidden />
-                                <div class="boton">
-                                    <Button inverted size='huge' onClick={this.sendToTops}>Sube tu juego</Button>
-                                </div>
+
+                                        </div>
+                                    </div>
+                                </center>
+                                
+
+
 
                             </Grid.Column>
                         </Grid>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+
+                        <div class="texto2">
+                            <p>Aquí puedes subir tu propio videojuego para <br />añadirlo al catálogo de la ULSA y que <br />todos puedan tener acceso a él.</p>
+                            <br />
+                        </div>
+                        <div class="boton">
+                            <Button inverted size='huge' onClick={this.sendToTops}>Sube tu juego</Button>
+                        </div>
 
                         <Divider hidden />
                         <Divider hidden />
 
                         <div id="contenido">
-
-                            <Divider horizontal>
-                                <Header inverted as='h1'>
-                                    <Icon name='game' />
+                            <div id="info3">
+                                <Divider horizontal>
+                                    <Header center inverted as='h1'>
+                                        <Icon name='game' />
                                     Selecciona que tipos de juegos quieres ver
                                 </Header>
-                            </Divider>
+                                </Divider>
 
 
-                            <Form.Select style={{ border: '3px solid white', backgroundColor: '#0D021A', color: '#ffffff' }}
-                                button
-                                options={this.state.gameGeneroList}
-                                placeholder='Genero'
-                                onChange={this.handleGenero}
-                            />
+                                <Form.Select center style={{ border: '3px solid white', backgroundColor: '#1a1a2e', color: '#ffffff' }}
+                                    button
+                                    options={this.state.gameGeneroList}
+                                    placeholder='Genero'
+                                    onChange={this.handleGenero}
+                                />
 
-                            <Divider hidden />
+                                <Divider hidden />
 
-                            <List horizontal celled >
-                                {this.showGames()}
-                            </List>
+                                <List horizontal celled >
+                                    {this.showGames()}
+                                </List>
 
 
 
-                            <div class="boton">
-                                <Button onClick={this.sendToGames} inverted size='huge'>Ver todos los juegos</Button>
-                                <br />
-                                <br />
+                                <div class="boton">
+                                    <Button onClick={this.sendToGames} inverted size='huge'>Ver todos los juegos</Button>
+                                    <br />
+                                    <br />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+          
 
+                <Segment inverted vertical style={{ padding: '5em 0em' }}>
+                    <div class='center'>
+                    <Container>
+                        <Grid divided inverted stackable>
+                            <Grid.Row>
+                                <Grid.Column width={3}>
+                                    <Header inverted as='h4' content='Universidad La Salle Noroeste' />
+                                    <List link inverted>
+                                        <List.Item href="http://www.ulsa-noroeste.edu.mx/">Sitio web</List.Item>
+                                        <List.Item href="https://avirtual.lasallenoroeste.edu.mx/login/index.php">Moddle</List.Item>
+                                    </List>
+                                </Grid.Column>
+                                <Grid.Column width={3}>
+                                    <Header inverted as='h4' content='Redes sociales' />
+                                    <div class="ui middle aligned selection list">
+                                        <div class="item">
+                                            <img class="ui avatar image" src="https://cdn.discordapp.com/attachments/775558235809120268/783843259217739776/facebook.icon_Mesa_de_trabajo_1.png" />
+                                            <div class="content">
+                                                <a class="header" href="https://www.facebook.com/UniversidadLaSalleNoroeste">Facebook</a>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <img class="ui avatar image" src="https://media.discordapp.net/attachments/775558235809120268/783843900526952458/insta.ic_Mesa_de_trabajo_1.png" />
+                                            <div class="content">
+                                                <div class="ref">
+                                                    <a class="header" href="https://www.instagram.com/lasallenoroeste">Instagram</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <img class="ui avatar image" src="https://media.discordapp.net/attachments/775558235809120268/783844310113714207/twitter_Mesa_de_trabajo_1.png" />
+                                            <div class="content">
+                                                <a class="header" href="https://mobile.twitter.com/lasallenoroeste" >Twitter</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </Grid.Column>
+                                <Grid.Column width={3}>
+                                    <Header as='h4' inverted>
+                                        Derechos reservados ©
+                                    </Header>
+                                    <p>
+                                        Danna Aguilar <br />
+                                        César Amaya <br />
+                                        Marisela Delgadillo <br />
+                                        Azalia Peña <br />
+                                    </p>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </Container>
+                    </div>
+                </Segment>
+
+
+
+                </div>
             </Fragment>
 
         );

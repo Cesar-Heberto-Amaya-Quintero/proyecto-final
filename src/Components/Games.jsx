@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { Divider, Header, Menu, Image, Rating, Embed, Card, List, Grid, Button, Icon } from 'semantic-ui-react';
+import { Divider, Header, Image, Card, List, Container, Grid, Segment } from 'semantic-ui-react';
 
 import { getApolloContext, gql } from '@apollo/client';
 
@@ -74,14 +74,14 @@ export default class Games extends Component {
                                 src={`http://localhost:5000${game.imageUrl}`} />
                             <div class="textoCarta">
                                 <h1 >{game.name}</h1>
-                                <Header inverted as="h2" textAlign="center">{game.author}</Header>
+                                <Header inverted as="h3" textAlign="center">{game.author}</Header>
                                 <div class="textoCarta">
                                     <Header inverted as="h4" textAlign="center">{game.gameGenero.name}</Header>
 
                                 </div>
                             </div>
                             <div class="extra content">
-                                
+
                             </div>
                         </Card>
                     </div>
@@ -110,11 +110,11 @@ export default class Games extends Component {
                             <div class="image">
                                 <Image src='https://www.lasallenoroeste.edu.mx/sites/default/files/1_IMAGOTIPO_LASALLE_ulsanoroeste_transparente-01_new_1.png' />
                             </div>
-                 
-                                <li onClick={this.sendToHome} name='Home' icon='home'><a href="#">Home</a></li>
-                                <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
-                                <li onClick={this.sendToTops}><a href="#">Subir</a></li>
-                    
+
+                            <li onClick={this.sendToHome} name='Home' icon='home'><a href="#">Inicio</a></li>
+                            <li onClick={this.sendToGames}><a href="#">Juegos</a></li>
+                            <li onClick={this.sendToTops}><a href="#">Subir</a></li>
+
                         </ul>
                     </div>
                     <div id="contenido">
@@ -135,6 +135,60 @@ export default class Games extends Component {
                         <br />
                         <br />
                     </div>
+                    <Segment inverted vertical style={{ padding: '5em 0em' }}>
+                    <div class='center'>
+                    <Container>
+                        <Grid divided inverted stackable>
+                            <Grid.Row>
+                                <Grid.Column width={3}>
+                                    <Header inverted as='h4' content='Universidad La Salle Noroeste' />
+                                    <List link inverted>
+                                        <List.Item href="http://www.ulsa-noroeste.edu.mx/">Sitio web</List.Item>
+                                        <List.Item href="https://avirtual.lasallenoroeste.edu.mx/login/index.php">Moddle</List.Item>
+                                    </List>
+                                </Grid.Column>
+                                <Grid.Column width={3}>
+                                    <Header inverted as='h4' content='Redes sociales' />
+                                    <div class="ui middle aligned selection list">
+                                        <div class="item">
+                                            <img class="ui avatar image" src="https://cdn.discordapp.com/attachments/775558235809120268/783843259217739776/facebook.icon_Mesa_de_trabajo_1.png" />
+                                            <div class="content">
+                                                <a class="header" href="https://www.facebook.com/UniversidadLaSalleNoroeste">Facebook</a>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <img class="ui avatar image" src="https://media.discordapp.net/attachments/775558235809120268/783843900526952458/insta.ic_Mesa_de_trabajo_1.png" />
+                                            <div class="content">
+                                                <div class="ref">
+                                                    <a class="header" href="https://www.instagram.com/lasallenoroeste">Instagram</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item">
+                                            <img class="ui avatar image" src="https://media.discordapp.net/attachments/775558235809120268/783844310113714207/twitter_Mesa_de_trabajo_1.png" />
+                                            <div class="content">
+                                                <a class="header" href="https://mobile.twitter.com/lasallenoroeste" >Twitter</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </Grid.Column>
+                                <Grid.Column width={3}>
+                                    <Header as='h4' inverted>
+                                        Derechos reservados ©
+                                    </Header>
+                                    <p>
+                                        Danna Aguilar <br />
+                                        César Amaya <br />
+                                        Marisela Delgadillo <br />
+                                        Azalia Peña <br />
+                                    </p>
+                                </Grid.Column>
+                            </Grid.Row>
+                        </Grid>
+                    </Container>
+                    </div>
+                </Segment>
                 </Fragment>
             </div>
         );

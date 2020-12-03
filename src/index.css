@@ -1,16 +1,4 @@
-/* @media screen and (max-width: 100%) { */
-  .col-1 {width: 8.33%;}
-  .col-2 {width: 16.66%;}
-  .col-3 {width: 25%;}
-  .col-4 {width: 33.33%;}
-  .col-5 {width: 41.66%;}
-  .col-6 {width: 50%;}
-  .col-7 {width: 58.33%;}
-  .col-8 {width: 66.66%;}
-  .col-9 {width: 75%;}
-  .col-10 {width: 83.33%;}
-  .col-11 {width: 91.66%;}
-  .col-12 {width: 100%;}
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Passion+One:wght@700&family=Russo+One&display=swap');
 
   .body {
     margin: 0;
@@ -22,11 +10,17 @@
     background-color: #0D021A;
 
   }
-/* } */
+
 
 .icon{
   width: 100px;
   size: auto;
+}
+
+.fondoSubir {
+  background-color: #1a1a2e;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .fondo {
@@ -51,6 +45,7 @@
   line-height: 30px;
   color: #fff;
 }
+
 
 .titulo {
   font-size: 48px;
@@ -90,7 +85,7 @@
 .imagen {
   border: #fff;
   border-style: solid;
-  border-radius: 10px;
+  
 }
 
 
@@ -107,7 +102,7 @@ body .ui.cards>.card{
 
 }
 
-.ui.card>.content>a.header,
+/* .ui.card>.content>a.header,
 .ui.cards>.card>.content>a.header,
 .ui.card .meta,
 .ui.card .header,
@@ -121,11 +116,11 @@ body .ui.cards>.card{
   border-collapse: collapse;
   text-align: left;
  
-}
-.ui.inverted.segment,
+} */
+/* .ui.inverted.segment,
 .ui.primary.inverted.segment {
     background: #00293C; 
-}
+} */
 
 input#abrir-cerrar { visibility:hidden; position: absolute; top: -9999px; }
 input#abrir-cerrar:checked ~ #sidebar {
@@ -182,6 +177,10 @@ header {
   width:100%;
 }
 
+a.header{
+  text-align: center;
+}
+
 input#abrir-cerrar {
   visibility:hidden;
   position: absolute;
@@ -199,6 +198,7 @@ label[for="abrir-cerrar"] {
   width:100%;
   font-size: large;
   line-height: 1;
+  
 }
 
 .cerrar {
@@ -242,6 +242,7 @@ input#abrir-cerrar:checked + label[for="abrir-cerrar"] .abrir {
   transition: 0.4s;
   padding: 1rem 0;
   box-sizing:border-box;
+  text-align: center;
 
 }
 
@@ -293,6 +294,12 @@ input#abrir-cerrar:checked + label[for="abrir-cerrar"] .abrir {
   margin-bottom: inherit;
 }
 
+.center{
+  padding-left: 28%;
+  text-align: left;
+  align-items: center;
+}
+
 .banner{
   width: 100%;
   height: 550px;
@@ -302,19 +309,25 @@ input#abrir-cerrar:checked + label[for="abrir-cerrar"] .abrir {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background-image: url(); */
 }
+
+.foo{
+  text-align: left;
+}
+
 @keyframes banner{
   10%, 20%{
-    background-image: url(https://cdn02.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_download_software_1/H2x1_NSwitchDS_HollowKnightSilksong_image1600w.jpg);
+    background-image: url(https://cdn.discordapp.com/attachments/775558235809120268/783837527169695794/hollow-knight.png);
   }
   25%, 45%{
-    background-image: url(https://i.ytimg.com/vi/3BSulCy9riw/maxresdefault.jpg);
+    background-image: url(https://cdn.discordapp.com/attachments/775558235809120268/783820813672382504/Minecraft.jpg.png);
   }
   50%, 70%{
-    background-image: url(https://www.nintendo.com.au/nintendo-switch/super-mario-odyssey/img/super-mario-odyssey-banner.jpg);
+    background-image: url(https://cdn.discordapp.com/attachments/775558235809120268/783838426230947870/Super-Mario.png);
   }
   75%, 100%{
-    background-image: url(https://images.hdqwalls.com/download/dying-light-and-left-4-dead-2-yw-2048x1152.jpg);
+    background-image: url(https://cdn.discordapp.com/attachments/775558235809120268/783842566214910032/little-nightmare.jpg);
   }
 }
 .capa{
@@ -330,17 +343,21 @@ input#abrir-cerrar:checked + label[for="abrir-cerrar"] .abrir {
   width: 100%;
   max-width: 550px;
   text-align: center;
+  font-size: 20px;
 }
 .info h1{
   color: #fff;
-  font-size: 45px;
+  font-size: 75px;
   margin-bottom: 20px;
   letter-spacing: 1px;
+  /* font-family: 'Libre Franklin', sans-serif; */
+
 }
 .info p{
   color: #c7c7c7;
   line-height: 1.7;
   margin-bottom: 30px;
+  /* font-family: 'Russo One', sans-serif; */
 }
 .info a{
   color: #fff;
@@ -349,4 +366,30 @@ input#abrir-cerrar:checked + label[for="abrir-cerrar"] .abrir {
   padding: 16px 37px;
   display: inline-block;
   border-radius: 50px;
+
+}
+
+.info2{
+  color: #fff;
+  text-align: left;
+  padding-left: 50px;
+  font-size: 40px;
+  padding-top: 10px;
+}
+
+.info3{
+  text-align: center;
+}
+
+.texto2{
+ text-align: center; 
+ color: #fff;
+ font-size: 25px;
+ 
+}
+
+.ref{
+
+  color: #eee;
+
 }
